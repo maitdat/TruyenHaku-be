@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebModels.Entities.BaseEnitities
+namespace TruyenHakuModels.Entities.BaseEnitities
 {
     public class BaseEntity
     {

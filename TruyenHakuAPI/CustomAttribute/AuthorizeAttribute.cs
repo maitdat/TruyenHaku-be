@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-using WebCommon.Constants;
+using TruyenHakuCommon.Constants;
 
-namespace WebAPI.CustomAttribute
+namespace TruyenHakuAPI.CustomAttribute
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter

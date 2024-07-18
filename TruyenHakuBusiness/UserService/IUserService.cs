@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebModels.RequestModels.AuthRequestModel;
+using TruyenHakuModels.RequestModels.AuthRequestModel;
 
-namespace WebBusiness.UserService
+namespace TruyenHakuBusiness.UserService
 {
     public interface IUserService
     {

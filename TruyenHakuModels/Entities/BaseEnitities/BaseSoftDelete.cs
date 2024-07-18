@@ -1,4 +1,4 @@
-﻿namespace WebModels.Entities.BaseEnitities
+﻿namespace TruyenHakuModels.Entities.BaseEnitities
 {
     public class BaseSoftDelete : BaseEntity
     {

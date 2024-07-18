@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebBusiness.RoleService;
-using WebCommon.Constants;
-using WebModels.RequestModels.RoleRequestModel;
+using TruyenHakuBusiness.RoleService;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels.RequestModels.RoleRequestModel;
 
-namespace WebAPI.Controllers
+namespace TruyenHakuAPI.Controllers
 {
     [Route(Constants.Controller.DEFAULT_ROUTE_CONTROLLER)]
     [ApiController]

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebModels.Entities;
+using TruyenHakuModels.Entities;
 
-namespace WebModels
+namespace TruyenHakuModels
 {
     public class AppDbContext : IdentityDbContext<UserAccount>
     {

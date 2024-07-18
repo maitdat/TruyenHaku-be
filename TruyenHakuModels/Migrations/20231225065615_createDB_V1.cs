@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace WebModels.Migrations
+namespace TruyenHakuModels.Migrations
 {
     /// <inheritdoc />
     public partial class createDB_V1 : Migration

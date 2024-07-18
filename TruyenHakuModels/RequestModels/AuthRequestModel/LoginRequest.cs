@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WebCommon.Constants;
+using TruyenHakuCommon.Constants;
 
-namespace WebModels.RequestModels.AuthRequestModel
+namespace TruyenHakuModels.RequestModels.AuthRequestModel
 {
     public class LoginRequest
     {

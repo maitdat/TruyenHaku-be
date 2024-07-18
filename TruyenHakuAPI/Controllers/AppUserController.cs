@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI.CustomAttribute;
-using WebBusiness.AuthService;
-using WebCommon.Constants;
-using WebModels.RequestModels.AuthRequestModel;
+using TruyenHakuAPI.CustomAttribute;
+using TruyenHakuBusiness.AuthService;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels.RequestModels.AuthRequestModel;
 
-namespace WebAPI.Controllers
+namespace TruyenHakuAPI.Controllers
 {
     [Route(Constants.Controller.DEFAULT_ROUTE_CONTROLLER)]
     [ApiController]

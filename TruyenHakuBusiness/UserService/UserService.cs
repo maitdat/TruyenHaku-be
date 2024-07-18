@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebCommon.Constants;
-using WebModels;
-using WebModels.RequestModels.AuthRequestModel;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels;
+using TruyenHakuModels.RequestModels.AuthRequestModel;
 
-namespace WebBusiness.UserService
+namespace TruyenHakuBusiness.UserService
 {
     public class UserService : IUserService
     {

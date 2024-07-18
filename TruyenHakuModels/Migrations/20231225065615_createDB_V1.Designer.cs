@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebModels;
+using TruyenHakuModels;
 
 #nullable disable
 
-namespace WebModels.Migrations
+namespace TruyenHakuModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20231225065615_createDB_V1")]

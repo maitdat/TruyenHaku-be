@@ -5,7 +5,7 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebCommon.Constants
+namespace TruyenHakuCommon.Constants
 {
     public class Constants
     {

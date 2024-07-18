@@ -2,7 +2,7 @@
 using System.Net;
 using System.Text.Json;
 
-namespace WebAPI.Middleware
+namespace TruyenHakuAPI.Middleware
 {
     public class ExeptionHandleMiddleware : IMiddleware
     {

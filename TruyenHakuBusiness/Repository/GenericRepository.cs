@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebModels;
-using WebModels.Entities.BaseEnitities;
+using TruyenHakuModels;
+using TruyenHakuModels.Entities.BaseEnitities;
 
-namespace WebBusiness.Repository
+namespace TruyenHakuBusiness.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseSoftDelete
     {

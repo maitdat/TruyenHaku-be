@@ -1,4 +1,4 @@
-﻿namespace WebModels.RequestModels.RoleRequestModel
+﻿namespace TruyenHakuModels.RequestModels.RoleRequestModel
 {
     public class RoleRequestModel
     {

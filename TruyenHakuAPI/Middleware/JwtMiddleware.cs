@@ -3,9 +3,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WebCommon.Constants;
+using TruyenHakuCommon.Constants;
 
-namespace WebAPI.Middleware
+namespace TruyenHakuAPI.Middleware
 {
     public class JwtMiddleware : IMiddleware
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebModels.RequestModels.RoleRequestModel;
-using static WebCommon.Enums;
+using TruyenHakuModels.RequestModels.RoleRequestModel;
+using static TruyenHakuCommon.Enums;
 
-namespace WebBusiness.RoleService
+namespace TruyenHakuBusiness.RoleService
 {
     public interface IRoleService
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using WebBusiness.TokenService;
-using WebCommon.Constants;
-using WebModels;
-using WebModels.Entities;
-using WebModels.RequestModels.AuthRequestModel;
-using WebModels.ResponseModels.AuthModel;
+using TruyenHakuBusiness.TokenService;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels;
+using TruyenHakuModels.Entities;
+using TruyenHakuModels.RequestModels.AuthRequestModel;
+using TruyenHakuModels.ResponseModels.AuthModel;
 
-namespace WebBusiness.AuthService
+namespace TruyenHakuBusiness.AuthService
 {
     public class AuthService : IAuthService
     {

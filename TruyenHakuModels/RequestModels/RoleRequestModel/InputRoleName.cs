@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebModels.RequestModels.RoleRequestModel
+namespace TruyenHakuModels.RequestModels.RoleRequestModel
 {
     public class InputRoleName
     {

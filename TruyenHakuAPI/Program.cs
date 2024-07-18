@@ -6,11 +6,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
-using WebAPI.Extensions;
-using WebAPI.Middleware;
-using WebCommon.Constants;
-using WebModels;
-using WebModels.Entities;
+using TruyenHakuAPI.Extensions;
+using TruyenHakuAPI.Middleware;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels;
+using TruyenHakuModels.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 

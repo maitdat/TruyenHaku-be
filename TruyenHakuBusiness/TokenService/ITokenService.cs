@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebModels.Entities;
+using TruyenHakuModels.Entities;
 
-namespace WebBusiness.TokenService
+namespace TruyenHakuBusiness.TokenService
 {
     public interface ITokenService
     {

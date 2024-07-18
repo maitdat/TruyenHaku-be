@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebModels.RequestModels.AuthRequestModel;
-using WebModels.ResponseModels.AuthModel;
+using TruyenHakuModels.RequestModels.AuthRequestModel;
+using TruyenHakuModels.ResponseModels.AuthModel;
 
-namespace WebBusiness.AuthService
+namespace TruyenHakuBusiness.AuthService
 {
     public interface IAuthService
     {

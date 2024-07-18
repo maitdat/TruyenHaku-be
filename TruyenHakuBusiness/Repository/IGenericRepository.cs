@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebBusiness.Repository
+namespace TruyenHakuBusiness.Repository
 {
     public interface IGenericRepository<T> where T : class
     {

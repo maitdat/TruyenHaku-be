@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebModels.ResponseModels
+namespace TruyenHakuModels.ResponseModels
 {
     public class UserResponseModelForLogInSignUp
     {

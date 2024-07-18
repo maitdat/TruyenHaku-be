@@ -1,9 +1,9 @@
-﻿using WebBusiness.AuthService;
-using WebBusiness.RoleService;
-using WebBusiness.TokenService;
-using WebBusiness.UserService;
+﻿using TruyenHakuBusiness.AuthService;
+using TruyenHakuBusiness.RoleService;
+using TruyenHakuBusiness.TokenService;
+using TruyenHakuBusiness.UserService;
 
-namespace WebAPI.Extensions
+namespace TruyenHakuAPI.Extensions
 {
     public static class ServicesRegisterExtensions
     {

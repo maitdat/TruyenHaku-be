@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebModels
+namespace TruyenHakuModels
 {
     public class DataSeeding
     {

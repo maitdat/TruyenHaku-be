@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using WebCommon.Constants;
-using WebModels.Entities;
-using WebModels.RequestModels.RoleRequestModel;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels.Entities;
+using TruyenHakuModels.RequestModels.RoleRequestModel;
 
-namespace WebBusiness.RoleService
+namespace TruyenHakuBusiness.RoleService
 {
     public class RoleService : IRoleService
     {

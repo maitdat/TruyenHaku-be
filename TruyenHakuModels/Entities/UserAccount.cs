@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebCommon;
+using TruyenHakuCommon;
 
-namespace WebModels.Entities
+namespace TruyenHakuModels.Entities
 {
     public class UserAccount : IdentityUser
     {

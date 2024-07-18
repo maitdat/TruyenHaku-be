@@ -4,10 +4,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WebCommon.Constants;
-using WebModels.Entities;
+using TruyenHakuCommon.Constants;
+using TruyenHakuModels.Entities;
 
-namespace WebBusiness.TokenService
+namespace TruyenHakuBusiness.TokenService
 {
     public class TokenService : ITokenService
     {
