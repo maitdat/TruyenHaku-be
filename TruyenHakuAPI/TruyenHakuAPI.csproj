@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebBusiness\TruyenHakuBusiness.csproj" />
-    <ProjectReference Include="..\WebModels\TruyenHakuModels.csproj" />
+    <ProjectReference Include="..\TruyenHakuBusiness\TruyenHakuBusiness.csproj" />
+    <ProjectReference Include="..\TruyenHakuModels\TruyenHakuModels.csproj" />
   </ItemGroup>
 
 </Project>

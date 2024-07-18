@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebCommon\TruyenHakuCommon.csproj" />
+    <ProjectReference Include="..\TruyenHakuCommon\TruyenHakuCommon.csproj" />
   </ItemGroup>
 
 </Project>

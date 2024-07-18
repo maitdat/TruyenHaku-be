@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuAPI", "WebAPI\TruyenHakuAPI.csproj", "{9C897821-A35A-4EA9-863F-138851A117E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuAPI", "TruyenHakuAPI\TruyenHakuAPI.csproj", "{181412D6-5706-4A5C-BB60-A6D335EA6E34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuModels", "WebModels\TruyenHakuModels.csproj", "{8D3BC85F-640E-443D-9351-448BC21C8876}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuBusiness", "TruyenHakuBusiness\TruyenHakuBusiness.csproj", "{775C585E-2791-4517-8A19-8C937D3F766C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuBusiness", "WebBusiness\TruyenHakuBusiness.csproj", "{3650CAAF-111D-4E4E-9F1E-8CDDFD346B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuCommon", "TruyenHakuCommon\TruyenHakuCommon.csproj", "{EF291E86-9048-4DC9-8EF3-F253988BF336}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuCommon", "WebCommon\TruyenHakuCommon.csproj", "{97345E3D-CA22-4848-AD99-D1C494F55F5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruyenHakuModels", "TruyenHakuModels\TruyenHakuModels.csproj", "{3255CCD2-54C7-4D19-87E9-F3A5435A5BA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9C897821-A35A-4EA9-863F-138851A117E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C897821-A35A-4EA9-863F-138851A117E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C897821-A35A-4EA9-863F-138851A117E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C897821-A35A-4EA9-863F-138851A117E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D3BC85F-640E-443D-9351-448BC21C8876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D3BC85F-640E-443D-9351-448BC21C8876}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D3BC85F-640E-443D-9351-448BC21C8876}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D3BC85F-640E-443D-9351-448BC21C8876}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3650CAAF-111D-4E4E-9F1E-8CDDFD346B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3650CAAF-111D-4E4E-9F1E-8CDDFD346B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3650CAAF-111D-4E4E-9F1E-8CDDFD346B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3650CAAF-111D-4E4E-9F1E-8CDDFD346B8D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97345E3D-CA22-4848-AD99-D1C494F55F5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97345E3D-CA22-4848-AD99-D1C494F55F5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97345E3D-CA22-4848-AD99-D1C494F55F5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97345E3D-CA22-4848-AD99-D1C494F55F5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{181412D6-5706-4A5C-BB60-A6D335EA6E34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{181412D6-5706-4A5C-BB60-A6D335EA6E34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{181412D6-5706-4A5C-BB60-A6D335EA6E34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{181412D6-5706-4A5C-BB60-A6D335EA6E34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775C585E-2791-4517-8A19-8C937D3F766C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775C585E-2791-4517-8A19-8C937D3F766C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775C585E-2791-4517-8A19-8C937D3F766C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775C585E-2791-4517-8A19-8C937D3F766C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF291E86-9048-4DC9-8EF3-F253988BF336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF291E86-9048-4DC9-8EF3-F253988BF336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF291E86-9048-4DC9-8EF3-F253988BF336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF291E86-9048-4DC9-8EF3-F253988BF336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3255CCD2-54C7-4D19-87E9-F3A5435A5BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3255CCD2-54C7-4D19-87E9-F3A5435A5BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3255CCD2-54C7-4D19-87E9-F3A5435A5BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3255CCD2-54C7-4D19-87E9-F3A5435A5BA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

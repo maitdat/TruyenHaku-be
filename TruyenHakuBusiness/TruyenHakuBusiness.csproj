@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebModels\TruyenHakuModels.csproj" />
+    <ProjectReference Include="..\TruyenHakuModels\TruyenHakuModels.csproj" />
   </ItemGroup>
 
 </Project>
