@@ -11,6 +11,9 @@ namespace TruyenHakuModels
 
         }
         public DbSet<UserAccount> ApplicationUser { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Manga> Manga { get; set; }
+        //public DbSet<Author> Author { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
