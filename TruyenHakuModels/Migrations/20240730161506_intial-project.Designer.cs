@@ -12,8 +12,8 @@ using TruyenHakuModels;
 namespace TruyenHakuModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240110095509_seed-data")]
-    partial class seeddata
+    [Migration("20240730161506_intial-project")]
+    partial class intialproject
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,24 +54,24 @@ namespace TruyenHakuModels.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5f46c864-c3e1-4cb5-aed4-ec837643484f",
+                            Id = "e1d24647-96fb-4b86-a930-92aca4cd6b30",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "ea372024-c98d-41e8-9431-59366137f0e7",
+                            Id = "8ec656bf-6be4-4dd7-b092-e6c858c6298a",
                             ConcurrencyStamp = "2",
-                            Name = "User",
-                            NormalizedName = "User"
+                            Name = "Manager",
+                            NormalizedName = "Manager"
                         },
                         new
                         {
-                            Id = "d207782b-e687-480d-9603-f526f805afea",
+                            Id = "1ddb4ce4-e678-4466-b222-eba16ff808d3",
                             ConcurrencyStamp = "3",
-                            Name = "Publisher",
-                            NormalizedName = "Publisher"
+                            Name = "Member",
+                            NormalizedName = "Member"
                         });
                 });
 
@@ -181,7 +181,169 @@ namespace TruyenHakuModels.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("WebModels.Entities.UserAccount", b =>
+            modelBuilder.Entity("TruyenHakuModels.Entities.Author", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+                });
+
+            modelBuilder.Entity("TruyenHakuModels.Entities.Category", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("CategoryEnum")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CategoryEnum = 1,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CategoryEnum = 2,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CategoryEnum = 3,
+                            Name = "Isekai"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CategoryEnum = 4,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CategoryEnum = 5,
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CategoryEnum = 6,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CategoryEnum = 7,
+                            Name = "Psychological"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CategoryEnum = 8,
+                            Name = "Supernatural"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CategoryEnum = 9,
+                            Name = "Ecchi"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            CategoryEnum = 10,
+                            Name = "Shounen"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            CategoryEnum = 11,
+                            Name = "Seinen"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            CategoryEnum = 12,
+                            Name = "Soujo"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            CategoryEnum = 13,
+                            Name = "Yaoi"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            CategoryEnum = 14,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            CategoryEnum = 15,
+                            Name = "SliceOfLife"
+                        });
+                });
+
+            modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("AnotherName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("AuthorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Categories")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Chapter")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("TotalView")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Manga");
+                });
+
+            modelBuilder.Entity("TruyenHakuModels.Entities.UserAccount", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -264,7 +426,7 @@ namespace TruyenHakuModels.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("WebModels.Entities.UserAccount", null)
+                    b.HasOne("TruyenHakuModels.Entities.UserAccount", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -273,7 +435,7 @@ namespace TruyenHakuModels.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("WebModels.Entities.UserAccount", null)
+                    b.HasOne("TruyenHakuModels.Entities.UserAccount", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -288,7 +450,7 @@ namespace TruyenHakuModels.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebModels.Entities.UserAccount", null)
+                    b.HasOne("TruyenHakuModels.Entities.UserAccount", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -297,11 +459,22 @@ namespace TruyenHakuModels.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("WebModels.Entities.UserAccount", null)
+                    b.HasOne("TruyenHakuModels.Entities.UserAccount", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
+                {
+                    b.HasOne("TruyenHakuModels.Entities.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
                 });
 #pragma warning restore 612, 618
         }

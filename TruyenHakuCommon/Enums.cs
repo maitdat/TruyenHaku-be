@@ -21,7 +21,7 @@ namespace TruyenHakuCommon
             Fantasy = 4,
             Comedy = 5, 
             Romance = 6,
-            Pyschological = 7,
+            Psychological = 7,
             Supernatural = 8,
             Ecchi = 9,
             Shounen = 10,

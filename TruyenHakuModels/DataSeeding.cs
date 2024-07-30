@@ -38,81 +38,97 @@ namespace TruyenHakuModels
         private static void SeedCategory (ModelBuilder builder)
         {
             builder.Entity<Category>().HasData(
-            new Category
-            {
-                Name = "Action",
-                CategoryEnum = Enums.Category.Action,
-            },
-            new Category
-            {
-                Name = "Adventure",
-                CategoryEnum = Enums.Category.Adventure,
-            },
-            new Category
-            {
-                Name = "Isekai",
-                CategoryEnum = Enums.Category.Isekai,
-            },
-            new Category
-            {
-                Name = "Fantasy",
-                CategoryEnum = Enums.Category.Fantasy,
-            },
-            new Category
-            {
-                Name = "Comedy",
-                CategoryEnum = Enums.Category.Comedy,
-            },
-            new Category
-            {
-                Name = "Romance",
-                CategoryEnum = Enums.Category.Romance,
-            },
-            new Category
-            {
-                Name = "Pyschological",
-                CategoryEnum = Enums.Category.Pyschological,
-            },
-            new Category
-            {
-                Name = "Supernatural",
-                CategoryEnum = Enums.Category.Supernatural,
-            },
-            new Category
-            {
-                Name = "Ecchi",
-                CategoryEnum = Enums.Category.Ecchi,
-            },
-            new Category
-            {
-                Name = "Shounen",
-                CategoryEnum = Enums.Category.Shounen,
-            },
-            new Category
-            {
-                Name = "Seinen",
-                CategoryEnum = Enums.Category.Seinen,
-            },
-            new Category
-            {
-                Name = "Soujo",
-                CategoryEnum = Enums.Category.Soujo,
-            },
-            new Category
-            {
-                Name = "Yaoi",
-                CategoryEnum = Enums.Category.Yaoi,
-            },
-            new Category
-            {
-                Name = "Horror",
-                CategoryEnum = Enums.Category.Horror,
-            },
-            new Category
-            {
-                Name = "SliceOfLife",
-                CategoryEnum = Enums.Category.SliceOfLife,
-            });
+                new Category
+                {
+                    Id = 1,
+                    Name = "Action",
+                    CategoryEnum = Enums.Category.Action,
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Adventure",
+                    CategoryEnum = Enums.Category.Adventure,
+                },
+                new Category
+                {
+                    Id = 3,
+                    Name = "Isekai",
+                    CategoryEnum = Enums.Category.Isekai,
+                },
+                new Category
+                {
+                    Id = 4,
+                    Name = "Fantasy",
+                    CategoryEnum = Enums.Category.Fantasy,
+                },
+                new Category
+                {
+                    Id = 5,
+                    Name = "Comedy",
+                    CategoryEnum = Enums.Category.Comedy,
+                },
+                new Category
+                {
+                    Id = 6,
+                    Name = "Romance",
+                    CategoryEnum = Enums.Category.Romance,
+                },
+                new Category
+                {
+                    Id = 7,
+                    Name = "Psychological",
+                    CategoryEnum = Enums.Category.Psychological,
+                },
+                new Category
+                {
+                    Id = 8,
+                    Name = "Supernatural",
+                    CategoryEnum = Enums.Category.Supernatural,
+                },
+                new Category
+                {
+                    Id = 9,
+                    Name = "Ecchi",
+                    CategoryEnum = Enums.Category.Ecchi,
+                },
+                new Category
+                {
+                    Id = 10,
+                    Name = "Shounen",
+                    CategoryEnum = Enums.Category.Shounen,
+                },
+                new Category
+                {
+                    Id = 11,
+                    Name = "Seinen",
+                    CategoryEnum = Enums.Category.Seinen,
+                },
+                new Category
+                {
+                    Id = 12,
+                    Name = "Soujo",
+                    CategoryEnum = Enums.Category.Soujo,
+                },
+                new Category
+                {
+                    Id = 13,
+                    Name = "Yaoi",
+                    CategoryEnum = Enums.Category.Yaoi,
+                },
+                new Category
+                {
+                    Id = 14,
+                    Name = "Horror",
+                    CategoryEnum = Enums.Category.Horror,
+                },
+                new Category
+                {
+                    Id = 15,
+                    Name = "SliceOfLife",
+                    CategoryEnum = Enums.Category.SliceOfLife,
+                }
+            );
         }
     }
 }

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace TruyenHakuModels.Migrations
 {
     /// <inheritdoc />
-    public partial class createDB_V1 : Migration
+    public partial class intialproject : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,6 +52,32 @@ namespace TruyenHakuModels.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Author",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Author", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Category",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryEnum = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,6 +186,62 @@ namespace TruyenHakuModels.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Manga",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnotherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Categories = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Chapter = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AuthorId = table.Column<long>(type: "bigint", nullable: false),
+                    TotalView = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Manga", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Manga_Author_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "Author",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1ddb4ce4-e678-4466-b222-eba16ff808d3", "3", "Member", "Member" },
+                    { "8ec656bf-6be4-4dd7-b092-e6c858c6298a", "2", "Manager", "Manager" },
+                    { "e1d24647-96fb-4b86-a930-92aca4cd6b30", "1", "Admin", "Admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "Id", "CategoryEnum", "Name" },
+                values: new object[,]
+                {
+                    { 1L, 1, "Action" },
+                    { 2L, 2, "Adventure" },
+                    { 3L, 3, "Isekai" },
+                    { 4L, 4, "Fantasy" },
+                    { 5L, 5, "Comedy" },
+                    { 6L, 6, "Romance" },
+                    { 7L, 7, "Psychological" },
+                    { 8L, 8, "Supernatural" },
+                    { 9L, 9, "Ecchi" },
+                    { 10L, 10, "Shounen" },
+                    { 11L, 11, "Seinen" },
+                    { 12L, 12, "Soujo" },
+                    { 13L, 13, "Yaoi" },
+                    { 14L, 14, "Horror" },
+                    { 15L, 15, "SliceOfLife" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -196,6 +280,11 @@ namespace TruyenHakuModels.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Manga_AuthorId",
+                table: "Manga",
+                column: "AuthorId");
         }
 
         /// <inheritdoc />
@@ -217,10 +306,19 @@ namespace TruyenHakuModels.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Category");
+
+            migrationBuilder.DropTable(
+                name: "Manga");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Author");
         }
     }
 }
