@@ -13,19 +13,17 @@ namespace TruyenHakuCommon
         public string? ModifierName { get; set; }
         public virtual void PrepareSave(IHttpContextAccessor httpContextAccessor, EntityState state)
         {
-            var identityName = httpContextAccessor?.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
+            var identityName = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.Name).Value;
             var now = DateTime.Now;
-            string nguoiTao = string.IsNullOrEmpty(NguoiTao) ? "unknown" : NguoiTao;
+            string creatorName = string.IsNullOrEmpty(CreatorName) ? "unknown" : CreatorName;
             if (state == EntityState.Added)
             {
-                NguoiTao = identityName ?? nguoiTao;
-                NgayTao = now;
-                NgayTaoAL = CalendarGetLunarDate.GetNgayAL(now);
+                CreatorName = identityName ?? creatorName;
+                DateCreated = now;
             }
-            string nguoiCapNhat = string.IsNullOrEmpty(NguoiCapNhat) ? "unknown" : NguoiCapNhat;
-            NguoiCapNhat = identityName ?? nguoiCapNhat;
-            NgayCapNhat = now;
-            NgayCapNhatAL = CalendarGetLunarDate.GetNgayAL(now);
+            string modifierName = string.IsNullOrEmpty(ModifierName) ? "unknown" : ModifierName;
+            ModifierName = identityName ?? modifierName;
+            DateModified = now;
         }                                                                                                                                                                        
     }
 }
