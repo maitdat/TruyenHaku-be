@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TruyenHakuCommon;
 using TruyenHakuModels;
-using TruyenHakuModels.Entities.BaseEnitities;
 
 namespace TruyenHakuBusiness.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseSoftDelete
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
     {
         private readonly AppDbContext _context;
         public GenericRepository(AppDbContext context)
