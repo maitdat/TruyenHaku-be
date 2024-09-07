@@ -9,11 +9,11 @@ namespace TruyenHakuBusiness.Repository
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetById(long Id);
-        IEnumerable<T> GetAll();
-        Task Add (T entity);
-        void Update (T entity,long id);
-        void Delete (T entity);
-        void SoftDelet(T entity);
+        Task<T> GetByIdAsync(long id);
+        IQueryable<T> GetAll();
+        Task AddAsync(T entity);
+        Task UpdateAsync (T entity);
+        Task DeleteAsync (T entity);
+        
     }
 }

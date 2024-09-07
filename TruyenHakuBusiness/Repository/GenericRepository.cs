@@ -4,42 +4,47 @@ using TruyenHakuModels;
 
 namespace TruyenHakuBusiness.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity, 
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity 
     {
         private readonly AppDbContext _context;
+        private DbSet<T> _dbSet;
         public GenericRepository(AppDbContext context)
         {
             _context = context;
+            if(_dbSet == null)
+                _dbSet = _context.Set<T>();
         }
-        public async Task Add(T entity)
+        public async Task AddAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task DeleteAsync(T entity)
         {
-             _context.Set<T>().Remove(entity);
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();    
         }
 
-        public IEnumerable<T> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return _context.Set<T>().Where(x=>!x.IsDeleted);
+            return _dbSet.AsNoTracking();
         }
 
-        public async Task<T> GetById(long Id)
+        public async Task<T> GetByIdAsync(long id)
         {
-            return await _context.Set<T>().Where(x=>x.Id ==  Id).FirstOrDefaultAsync();
+            return await GetAll().Where(x=>x.Id == id).FirstOrDefaultAsync();
         }
 
-        public void SoftDelet(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            entity.IsDeleted = true;
-            _context.SaveChanges();
+            _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(T entity, long id)
+        public Task UpdateAsync(T entity, long id)
         {
-             _context.Set<T>().Update(entity);
+            throw new NotImplementedException();
         }
     }
 }

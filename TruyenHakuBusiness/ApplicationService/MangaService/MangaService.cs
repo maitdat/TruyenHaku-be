@@ -18,10 +18,10 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
         
         #region PRIVATE METHOd
 
-        private bool CheckMangaExist(string name)
-        {
-            if(_dbContext.Manga)
-            }
+        //private bool CheckMangaExist(string name)
+        //{
+        //    if(_dbContext.Manga)
+        //    }
 
         #endregion
 }
