@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TruyenHakuModels.RequestModels.MangaRequestModel;
+using TruyenHakuModels.ResponseModels;
 
 namespace TruyenHakuBusiness.ApplicationService.MangaService
 {
     public interface IMangaService
     {
-        public Task<bool> AddNewManga(CreateMangaRequestModel model);
+        public Task<BaseResponse> AddManga(CreateMangaRequestModel model);
         
     }
 }

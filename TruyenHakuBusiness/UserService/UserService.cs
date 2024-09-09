@@ -17,7 +17,8 @@ namespace TruyenHakuBusiness.UserService
             var user =await _dbContext.Users.Where(x=>x.Id == id).FirstOrDefaultAsync();
             if(user == null)
             {
-                throw new Exception(Constants.Commons.USER_NOT_EXIST);
+                string itemName = "Người dùng";
+                throw new Exception(string.Format(Constants.Commons.ITEM_NOT_EXIST, itemName));
             }
             return new UserModel
             {

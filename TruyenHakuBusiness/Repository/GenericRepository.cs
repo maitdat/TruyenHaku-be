@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using TruyenHakuCommon;
 using TruyenHakuModels;
 
@@ -14,16 +15,38 @@ namespace TruyenHakuBusiness.Repository
             if(_dbSet == null)
                 _dbSet = _context.Set<T>();
         }
-        public async Task AddAsync(T entity)
+        public void Add(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
+             _context.Set<T>().Add(entity);
+        }
+        public void AddRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().AddRange(entities);
         }
 
-        public async Task DeleteAsync(T entity)
+        public void Update(T entity)
+        {
+            _context.Set<T>().Update(entity);
+        }
+
+        public void UpdateRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().UpdateRange(entities);
+        }
+
+        public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();    
+        }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().RemoveRange(entities);
+        }
+
+        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        {
+            return GetAll().Where(expression);
         }
 
         public IQueryable<T> GetAll()
@@ -35,16 +58,17 @@ namespace TruyenHakuBusiness.Repository
         {
             return await GetAll().Where(x=>x.Id == id).FirstOrDefaultAsync();
         }
-
-        public async Task UpdateAsync(T entity)
+        public void SaveChanges()
         {
-            _context.Set<T>().Update(entity);
+            _context.SaveChanges();
+        }
+
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
 
-        public Task UpdateAsync(T entity, long id)
-        {
-            throw new NotImplementedException();
-        }
+        
+
     }
 }
