@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace TruyenHakuCommon
 {
-    public class BaseEntityCommon
+    public class BaseEntityCommon : BaseEntity
     {
         public bool IsDeleted { get; set; }
         public DateTime? DateCreated {  get; set; }

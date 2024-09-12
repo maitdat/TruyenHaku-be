@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
+using TruyenHakuCommon;
 
 namespace TruyenHakuBusiness.Repository
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : BaseEntity
     {
-        Task<T> GetById(long Id);
-        IEnumerable<T> GetAll();
-        Task Add (T entity);
-        void Update (T entity,long id);
-        void Delete (T entity);
-        void SoftDelet(T entity);
+        Task<T> GetByIdAsync(long id);
+        IQueryable<T> GetAll();
+        void Add(T entity);
+        void AddRange(IEnumerable<T> entities);
+        void Update (T entity);
+        void UpdateRange(IEnumerable<T> entities);
+        void Remove (T entity);
+        void RemoveRange(IEnumerable<T> entities);
+        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+        void SaveChanges();
+        Task SaveChangesAsync();
     }
 }

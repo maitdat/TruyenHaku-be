@@ -1,45 +1,74 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using TruyenHakuCommon;
 using TruyenHakuModels;
-using TruyenHakuModels.Entities.BaseEnitities;
 
 namespace TruyenHakuBusiness.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseSoftDelete
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity 
     {
         private readonly AppDbContext _context;
+        private DbSet<T> _dbSet;
         public GenericRepository(AppDbContext context)
         {
             _context = context;
+            if(_dbSet == null)
+                _dbSet = _context.Set<T>();
         }
-        public async Task Add(T entity)
+        public void Add(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+             _context.Set<T>().Add(entity);
         }
-
-        public void Delete(T entity)
+        public void AddRange(IEnumerable<T> entities)
         {
-             _context.Set<T>().Remove(entity);
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return _context.Set<T>().Where(x=>!x.IsDeleted);
+            _context.Set<T>().AddRange(entities);
         }
 
-        public async Task<T> GetById(long Id)
+        public void Update(T entity)
         {
-            return await _context.Set<T>().Where(x=>x.Id ==  Id).FirstOrDefaultAsync();
+            _context.Set<T>().Update(entity);
         }
 
-        public void SoftDelet(T entity)
+        public void UpdateRange(IEnumerable<T> entities)
         {
-            entity.IsDeleted = true;
+            _context.Set<T>().UpdateRange(entities);
+        }
+
+        public void Remove(T entity)
+        {
+            _context.Set<T>().Remove(entity);
+        }
+
+        public void RemoveRange(IEnumerable<T> entities)
+        {
+            _context.Set<T>().RemoveRange(entities);
+        }
+
+        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        {
+            return GetAll().Where(expression);
+        }
+
+        public IQueryable<T> GetAll()
+        {
+            return _dbSet.AsNoTracking();
+        }
+
+        public async Task<T> GetByIdAsync(long id)
+        {
+            return await GetAll().Where(x=>x.Id == id).FirstOrDefaultAsync();
+        }
+        public void SaveChanges()
+        {
             _context.SaveChanges();
         }
 
-        public void Update(T entity, long id)
+        public async Task SaveChangesAsync()
         {
-             _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
         }
+
+        
+
     }
 }
