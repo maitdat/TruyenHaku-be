@@ -1,5 +1,4 @@
 ﻿using TruyenHakuModels;
-using System.Drawing;
 
 namespace TruyenHakuBusiness.CommonService
 {
@@ -11,22 +10,52 @@ namespace TruyenHakuBusiness.CommonService
             _appDbContext = appDbContext;
         }
 
-        public async Task DownloadImgFromURLAsync(string imgUrl,string filePath,string fileName)
+        public async Task DownloadImgFromURLAsync(HttpClient client, string imgUrl, string filePath, string fileName)
         {
-            if (string.IsNullOrEmpty(imgUrl)) return;
+            try
+            {
+                if (string.IsNullOrEmpty(imgUrl)) return;
+
+                
+                var path = Path.Combine(filePath, $"{fileName}.jpg");
+
+                var response = await client.GetAsync(imgUrl);
+                response.EnsureSuccessStatusCode();
+
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await stream.CopyToAsync(fileStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        public async Task DownloadListImgFromURLAsync(List<string> imgUrls, string filePath)
+        {
+            if (!imgUrls.Any()) return;
+
             using (HttpClient client = new HttpClient())
             {
-                Uri uri = new Uri(imgUrl);
+                var tasks = new List<Task>();
 
-                var uriWithoutQuery = uri.GetLeftPart(UriPartial.Path);
-                var fileExtension = Path.GetExtension(uriWithoutQuery);
+                for (int i = 0; i < imgUrls.Count; i++)
+                {
+                    // Đặt tên file theo chỉ số ảnh
+                    string fileName = $"{i + 1}";
 
-                var path = Path.Combine(filePath, $"{fileName}{fileExtension}");
+                    // Tải mỗi ảnh và thêm vào danh sách Task
+                    tasks.Add(DownloadImgFromURLAsync(client, imgUrls[i], filePath, fileName));
+                }
 
-                byte[] imageBytes = await client.GetByteArrayAsync(imgUrl);
-                // Save the byte array to a file
-                await File.WriteAllBytesAsync(path, imageBytes);
+                // Chờ tất cả các ảnh được tải xong
+                await Task.WhenAll(tasks);
             }
         }
     }
+
 }
+

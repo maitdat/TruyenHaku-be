@@ -13,7 +13,7 @@ using TruyenHakuModels;
 using TruyenHakuModels.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -99,6 +99,17 @@ builder.Services.AddSwaggerGen(option =>
     option.CustomSchemaIds(type => type.ToString());
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
+
 // use Service
 builder.Services.AddTransient<ExeptionHandleMiddleware>();
 builder.Services.AddTransient<JwtMiddleware>();
@@ -115,6 +126,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseMiddleware<ExeptionHandleMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
 

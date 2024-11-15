@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using TruyenHakuBusiness.Repository;
+﻿using TruyenHakuBusiness.ApplicationService.CrawlDataService;
 using TruyenHakuBusiness.UnitOfWork;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels;
 using TruyenHakuModels.Entities;
 using TruyenHakuModels.RequestModels.MangaRequestModel;
 using TruyenHakuModels.ResponseModels;
@@ -12,50 +9,60 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 {
     public class MangaService : IMangaService
     {
-        private string themTruyen = "Thêm truyện";
         private readonly IUnitofWork _unitOfWork;
-        public MangaService(IUnitofWork unitOfWork)
+        private readonly ICrawlDataService _crawlDataService;
+
+        private string THEM_TRUYEN = "Thêm truyện";
+
+
+        public MangaService(IUnitofWork unitOfWork, ICrawlDataService crawlDataService)
         {
             _unitOfWork = unitOfWork;
+            _crawlDataService = crawlDataService;
         }
         public async Task<BaseResponse> AddManga(CreateMangaRequestModel model)
         {
-            if(!CheckMangaExist(model.Name))
+            if(!IsMangaExisted(model.Name))
             {
-                var categoriesDefault = _unitOfWork.Repository<Category>().GetAll();
-                var newManga = new Manga
+                var crawlResult = await _crawlDataService.CrawlManga(model.LinkManga);
+                if (crawlResult.Succeed)
                 {
-                    Name = model.Name,
-                    AnotherName = model.AnotherName,
-                    MangaCategories = categoriesDefault.Where(x => model.CategoryIds.Contains(x.Id)).Select(y => new MangaCategory()
+                    var categoriesDefault = _unitOfWork.Repository<Category>().GetAll();
+                    var newManga = new Manga
                     {
-                        CategoryDefault = y,
-                    }).ToList(),
-                    Author = await _unitOfWork.Repository<Author>().GetByIdAsync(model.AuthorId),
-                    FolderPath = model.FolderPath,
-                };
+                        Name = model.Name,
+                        AnotherName = model.AnotherName,
+                        MangaCategories = categoriesDefault.Where(x => model.CategoryIds.Contains(x.Id)).Select(y => new MangaCategory()
+                        {
+                            CategoryDefault = y,
+                        }).ToList(),
+                        Author = await _unitOfWork.Repository<Author>().GetByIdAsync(model.AuthorId),
+                        FolderPath = crawlResult.Message,
+                    };
 
-                _unitOfWork.Repository<Manga>().Add(newManga);
-                await _unitOfWork.SaveChangesAsync();
-                return new BaseResponse()
-                {
-                    Succeed = true,
-                };
+                    _unitOfWork.Repository<Manga>().Add(newManga);
+                    await _unitOfWork.SaveChangesAsync();
+                    return new BaseResponse()
+                    {
+                        Succeed = true,
+                    };
+                }
             }
 
             return new BaseResponse()
             {
                 Errors = new[]
                 {
-                    string.Format(Constants.Commons.ACTION_FAILED, themTruyen)
+                    string.Format(Constants.Commons.ACTION_FAILED, THEM_TRUYEN)
                 }
             };
         }
+        public async Task<>
 
 
         #region PRIVATE METHOd
 
-        private bool CheckMangaExist(string name)
+        private bool IsMangaExisted(string name)
         {
             var mangaFound = _unitOfWork.Repository<Manga>().Find(x => x.Name == name).FirstOrDefault();
             if (mangaFound != null)

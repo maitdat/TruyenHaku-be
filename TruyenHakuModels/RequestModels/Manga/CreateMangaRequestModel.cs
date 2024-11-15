@@ -6,6 +6,7 @@
         public string? AnotherName { get; set; }
         public List<long> CategoryIds { get; set; }
         public long AuthorId { get; set; }
-        public required string FolderPath { get; set; }
+        public string FolderPath { get; set; } = string.Empty;
+        public required string LinkManga { get; set; }
     }
 }

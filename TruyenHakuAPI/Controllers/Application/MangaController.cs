@@ -1,9 +1,9 @@
-﻿using HtmlAgilityPack;
-using HtmlAgilityPack.CssSelectors.NetCore;
-using Microsoft.AspNetCore.Mvc;
-using TruyenHakuBusiness.CommonService;
+﻿using Microsoft.AspNetCore.Mvc;
+using TruyenHakuBusiness.ApplicationService.CrawlDataService;
+using TruyenHakuBusiness.ApplicationService.MangaService;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels.ResponseModels;
+using TruyenHakuModels.RequestModels.MangaRequestModel;
+using TruyenHakuModels.RequestModels.RoleRequestModel;
 
 namespace TruyenHakuAPI.Controllers.Application
 {
@@ -11,49 +11,36 @@ namespace TruyenHakuAPI.Controllers.Application
     [ApiController]
     public class MangaController : ControllerBase
     {
-        private ICommonService _commonService;
-        private const string _thumb = "Thumb";
-        public MangaController(ICommonService commonService) 
+        private IMangaService _mangaService;
+        private ICrawlDataService _crawlDataService;
+        public MangaController(IMangaService mangaService, ICrawlDataService crawlDataService)
         {
-            _commonService = commonService;
+            _mangaService = mangaService;
+            _crawlDataService = crawlDataService;
+        }
+        [HttpPost]
+        public async Task<IActionResult> CrawlAndAddNewManga(CreateMangaRequestModel createMangaRequestModel)
+        {
+            var res = await _mangaService.AddManga(createMangaRequestModel);
+            if (res.Succeed)
+                return Ok();
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CrawlData (string linkManga)
+        {
+            var res = await _crawlDataService.CrawlManga(linkManga);
+            if(res.Succeed)
+                return Ok();
+            return BadRequest();
         }
         [HttpGet]
-        public async Task<BaseResponse> CrawlManga(string linkManga)
+        public async Task<IActionResult> Get()
         {
-            var web = new HtmlWeb();
-            var document = web.Load(linkManga);
-
-            var mangaName = document.DocumentNode.QuerySelector(".title-detail").InnerHtml;
-            var otherMangaName = document.DocumentNode.QuerySelector(".other-name").InnerHtml;
-            //var authorName = document.DocumentNode.QuerySelector(".author col-xs-8").InnerHtml;
-            var thumbImgUrl = document.DocumentNode.QuerySelector(".image-thumb").Attributes["src"].Value;
-
-            var listChapterHTMLElement = document.DocumentNode.QuerySelectorAll(".list-chapter > nav #desc li .chapter a ");
-
-            var fileDirectory = "E:\\Data Manga\\ajin";
-
-            await _commonService.DownloadImgFromURLAsync(thumbImgUrl, fileDirectory, $"{mangaName}{_thumb}");
-
-
-            foreach ( var chapter in listChapterHTMLElement )
-            {
-
-            }
-
-
-            return new BaseResponse()
-            {
-                Succeed = true,
-            };
+            return Ok("aaaaa");
         }
-    }
-
-    public class MangaCrawl
-    {
-        public string AuthorName { get; set; }
-        public string MangaName { get; set; }
-        public string MangaDescription { get; set; }
-        public string AnotherMangaName { get; set; }
 
     }
+    
 }

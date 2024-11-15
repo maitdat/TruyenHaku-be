@@ -2,6 +2,7 @@
 {
     public interface ICommonService
     {
-        public Task DownloadImgFromURLAsync(string imgUrl, string filePath, string fileName);
+        Task DownloadImgFromURLAsync(HttpClient client, string imgUrl, string filePath, string fileName);
+        Task DownloadListImgFromURLAsync(List<string> imgUrls, string filePath);
     }
 }
