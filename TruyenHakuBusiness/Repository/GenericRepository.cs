@@ -54,9 +54,18 @@ namespace TruyenHakuBusiness.Repository
             return _dbSet.AsNoTracking();
         }
 
-        public async Task<T> GetByIdAsync(long id)
+        public async Task<T> GetByIdAsync(long id,params Expression<Func<T, object>>[] includes) 
         {
-            return await GetAll().Where(x=>x.Id == id).FirstOrDefaultAsync();
+            var query = _dbSet.AsNoTracking().Where(x => x.Id == id);
+            if (includes.Length > 0) 
+            {
+                foreach(var item in includes)
+                {
+                    query = query.Include(item);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
         public void SaveChanges()
         {

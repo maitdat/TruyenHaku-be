@@ -15,6 +15,9 @@ using TruyenHakuModels.Entities;
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
+builder.Services.AddControllersWithViews()
+                .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString(Constants.AppSettingKeys.DEFAULT_CONNECTION)));

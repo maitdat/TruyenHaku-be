@@ -45,7 +45,7 @@ namespace TruyenHakuCommon.Constants
             public const string IMAGE_ATTRIBUTE = "data-src";
         }
 
-        public class QuerySelectorBlogTruyenMoi
+        public class QuerySelectorTruyenQQ
         {
             public const string MANGA_NAME = ".book_other h1";
             public const string ANOTHER_MANGA_NAME = "";

@@ -3,9 +3,9 @@ using TruyenHakuCommon;
 
 namespace TruyenHakuBusiness.Repository
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetByIdAsync(long id);
+        Task<T> GetByIdAsync(long id, params Expression<Func<T, object>>[] includes);
         IQueryable<T> GetAll();
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);

@@ -23,15 +23,15 @@ namespace TruyenHakuBusiness.ApplicationService.CrawlDataService
             var web = new HtmlWeb();
             var document = web.Load(linkManga);
 
-            var mangaName = document.DocumentNode.QuerySelector($"{QuerySelectorBlogTruyenMoi.MANGA_NAME}").InnerHtml;
+            var mangaName = document.DocumentNode.QuerySelector($"{QuerySelectorTruyenQQ.MANGA_NAME}").InnerHtml;
             //var otherMangaName = document.DocumentNode.QuerySelector(".other-name").InnerHtml;
             //var authorName = document.DocumentNode.QuerySelector(".author col-xs-8").InnerHtml;
-            var thumbImgUrl = document.DocumentNode.QuerySelector($"{QuerySelectorBlogTruyenMoi.IMAGETHUMB}").Attributes["src"].Value;
-            var listChapterTag = document.DocumentNode.QuerySelectorAll($"{QuerySelectorBlogTruyenMoi.LIST_CHAPTER}");
+            var thumbImgUrl = document.DocumentNode.QuerySelector($"{QuerySelectorTruyenQQ.IMAGETHUMB}").Attributes["src"].Value;
+            var listChapterTag = document.DocumentNode.QuerySelectorAll($"{QuerySelectorTruyenQQ.LIST_CHAPTER}");
             var listChapter = listChapterTag.Select(x => new Chapter
             {
                 NameChapter = x.InnerText,
-                ChapterUrl = $"{QuerySelectorBlogTruyenMoi.HTTPS}{x.Attributes["href"].Value}"
+                ChapterUrl = $"{QuerySelectorTruyenQQ.HTTPS}{x.Attributes["href"].Value}"
             });
 
 
@@ -100,8 +100,8 @@ namespace TruyenHakuBusiness.ApplicationService.CrawlDataService
             var web = new HtmlWeb();
             var document = web.Load(chapterUrl);
 
-            List<string> listImgUrls = document.DocumentNode.QuerySelectorAll($"{QuerySelectorBlogTruyenMoi.IMGAGE}")
-                .Select(x => x.GetAttributeValue($"{QuerySelectorBlogTruyenMoi.IMAGE_ATTRIBUTE}", "")).ToList();
+            List<string> listImgUrls = document.DocumentNode.QuerySelectorAll($"{QuerySelectorTruyenQQ.IMGAGE}")
+                .Select(x => x.GetAttributeValue($"{QuerySelectorTruyenQQ.IMAGE_ATTRIBUTE}", "")).ToList();
             return listImgUrls;
         }
     }

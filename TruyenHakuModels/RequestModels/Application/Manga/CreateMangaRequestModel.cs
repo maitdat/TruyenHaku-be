@@ -1,4 +1,4 @@
-﻿namespace TruyenHakuModels.RequestModels.MangaRequestModel
+﻿namespace TruyenHakuModels.RequestModels.Application.Manga
 {
     public class CreateMangaRequestModel
     {
