@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
-using TruyenHakuBusiness.ApplicationService.CrawlDataService;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 using TruyenHakuBusiness.ApplicationService.MangaService;
 using TruyenHakuCommon.Constants;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Authorization;
 using TruyenHakuModels.RequestModels.Application.Manga;
 
 namespace TruyenHakuAPI.Controllers.Application
@@ -14,22 +12,14 @@ namespace TruyenHakuAPI.Controllers.Application
     public class MangaController : ControllerBase
     {
         private IMangaService _mangaService;
-        private ICrawlDataService _crawlDataService;
-        public MangaController(IMangaService mangaService, ICrawlDataService crawlDataService)
+       
+        public MangaController(IMangaService mangaService)
         {
             _mangaService = mangaService;
-            _crawlDataService = crawlDataService;
+            
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CrawlData (string linkManga)
-        {
-            var res = await _crawlDataService.CrawlManga(linkManga);
-            if(res.Succeed)
-                return Ok();
-            return BadRequest();
-        }
-
+       
         [HttpPost]
         public async Task<IActionResult> CrawlThenAddManga (CreateMangaRequestModel createMangaRequestModel)
         {

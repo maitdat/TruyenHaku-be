@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruyenHakuModels;
 
@@ -11,9 +12,11 @@ using TruyenHakuModels;
 namespace TruyenHakuModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241126101526_update_migration_v2")]
+    partial class update_migration_v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,47 +269,6 @@ namespace TruyenHakuModels.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TruyenHakuModels.Entities.Chapter", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("CreatorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<long>("MangaId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("ModifierName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PathDirectory")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MangaId");
-
-                    b.ToTable("Chapter");
-                });
-
             modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
                 {
                     b.Property<long>("Id")
@@ -469,83 +431,6 @@ namespace TruyenHakuModels.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("TruyenHakuModels.Entities.WebCssSelector", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("AnotherNameSelectors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorSelectors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Https")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageAttribute")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageSelectors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageThumbURLSelectors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ListChapterSelectors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MangaNameSelectors")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WebName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("WebCssSelector");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            AnotherNameSelectors = ".other-name",
-                            AuthorSelectors = ".author col-xs-8",
-                            Https = "https://nettruyenviet.com",
-                            ImageAttribute = "data-src",
-                            ImageSelectors = ".reading-detail .page-chapter img",
-                            ImageThumbURLSelectors = ".image-thumb",
-                            ListChapterSelectors = ".list-chapter > nav #desc li .chapter a",
-                            MangaNameSelectors = ".title-detail",
-                            WebName = "NetTruyenViet"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            AnotherNameSelectors = "",
-                            AuthorSelectors = "",
-                            Https = "https://truyenqq.com",
-                            ImageAttribute = "src",
-                            ImageSelectors = "#list_image .page-chapter img",
-                            ImageThumbURLSelectors = ".book_avatar img",
-                            ListChapterSelectors = ".works-chapter-list .name-chap a",
-                            MangaNameSelectors = ".book_other h1",
-                            WebName = "TruyenQQ"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -597,17 +482,6 @@ namespace TruyenHakuModels.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TruyenHakuModels.Entities.Chapter", b =>
-                {
-                    b.HasOne("TruyenHakuModels.Entities.Manga", "Manga")
-                        .WithMany("Chapters")
-                        .HasForeignKey("MangaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Manga");
-                });
-
             modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
                 {
                     b.HasOne("TruyenHakuModels.Entities.Author", "Author")
@@ -638,8 +512,6 @@ namespace TruyenHakuModels.Migrations
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
                 {
-                    b.Navigation("Chapters");
-
                     b.Navigation("MangaCategories");
                 });
 #pragma warning restore 612, 618

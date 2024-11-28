@@ -1,8 +1,8 @@
-﻿using TruyenHakuBusiness.Repository;
+﻿using TruyenHakuBusiness.DesignPattern.Repository;
 using TruyenHakuCommon;
 using TruyenHakuModels;
 
-namespace TruyenHakuBusiness.UnitOfWork
+namespace TruyenHakuBusiness.DesignPattern.UnitOfWork
 {
     public class UnitOfWork : IUnitofWork
     {

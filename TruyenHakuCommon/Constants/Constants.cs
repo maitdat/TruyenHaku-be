@@ -17,7 +17,7 @@ namespace TruyenHakuCommon.Constants
             public const string JWT_VALIDISSUER = "JWT:ValidIssuer";
             public const string JWT_SECRET = "JWT:Secret";
             public const string JWT_EXPIREMINUTES = "JWT:RefreshExpireMinute";
-
+            public const string DEFAULT_ROOT_DIRECTORY = "DefaultRootDirectory";
         }
 
         public class Controller
@@ -31,30 +31,7 @@ namespace TruyenHakuCommon.Constants
         }
         public class PathFile
         {
-            public const string PATH_FILE_MANGA = "E:\\Data Manga";
-        }
-
-        public class QuerySelectorNetTruyenViet
-        {
-            public const string MANGA_NAME = ".title-detail";
-            public const string ANOTHER_MANGA_NAME = ".other-name";
-            public const string AUTHOR = ".author col-xs-8";
-            public const string IMAGETHUMB = ".image-thumb";
-            public const string LIST_CHAPTER = ".list-chapter > nav #desc li .chapter a ";
-            public const string IMGAGE = ".reading-detail .page-chapter img";
-            public const string IMAGE_ATTRIBUTE = "data-src";
-        }
-
-        public class QuerySelectorTruyenQQ
-        {
-            public const string MANGA_NAME = ".book_other h1";
-            public const string ANOTHER_MANGA_NAME = "";
-            public const string AUTHOR = "";
-            public const string IMAGETHUMB = ".book_avatar img";
-            public const string LIST_CHAPTER = ".works-chapter-list .name-chap a";
-            public const string IMGAGE = "#list_image .page-chapter img ";
-            public const string IMAGE_ATTRIBUTE = "src";
-            public const string HTTPS = "";
+            public const string DEFAULT_ROOT_DIRECTORY = "E:\\Data Manga";
         }
     }
 }

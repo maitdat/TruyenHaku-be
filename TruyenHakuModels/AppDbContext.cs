@@ -16,6 +16,8 @@ namespace TruyenHakuModels
         public DbSet<UserAccount> ApplicationUser { get; set; }
         public DbSet<MangaCategory> MangaCategory { get; set; }
         public DbSet<Manga> Manga { get; set; }
+        public DbSet<Chapter> Chapter { get; set; }
+        public DbSet<WebCssSelector> WebCssSelector { get; set; }
         //public DbSet<Author> Author { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -9,6 +9,5 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
         public Task<BaseResponse> CrawlThenAddManga(CreateMangaRequestModel model);
         public Task<BaseResponse> AddManga (CreateMangaRequestModel model);
         public Task<GetInfoMangaResponse> GetManga(long id);
-        
     }
 }

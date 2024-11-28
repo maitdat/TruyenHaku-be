@@ -1,11 +1,10 @@
-﻿using TruyenHakuBusiness.ApplicationService.CrawlDataService;
-using TruyenHakuBusiness.ApplicationService.MangaService;
+﻿using TruyenHakuBusiness.ApplicationService.MangaService;
 using TruyenHakuBusiness.AuthService;
 using TruyenHakuBusiness.CommonService;
-using TruyenHakuBusiness.Repository;
+using TruyenHakuBusiness.DesignPattern.Repository;
+using TruyenHakuBusiness.DesignPattern.UnitOfWork;
 using TruyenHakuBusiness.RoleService;
 using TruyenHakuBusiness.TokenService;
-using TruyenHakuBusiness.UnitOfWork;
 using TruyenHakuBusiness.UserService;
 
 namespace TruyenHakuAPI.Extensions
@@ -23,7 +22,6 @@ namespace TruyenHakuAPI.Extensions
             services.AddScoped<IRoleService,RoleService>();
             services.AddScoped<IMangaService,MangaService>();
             services.AddScoped<ICommonService,CommonService>();
-            services.AddScoped<ICrawlDataService,CrawlDataService>();
         }
     }
 }
