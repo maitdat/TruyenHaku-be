@@ -5,8 +5,8 @@ namespace TruyenHakuModels.Entities
 {
     public class MangaCategory : BaseEntityCommon
     {
-        [Column("CategoryDefaultId")]
-        public Category CategoryDefault { get; set; }
+        public long CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [Column("MangaId")]
         public Manga Manga { get; set; }

@@ -3,21 +3,21 @@ using System.Linq.Expressions;
 using TruyenHakuCommon;
 using TruyenHakuModels;
 
-namespace TruyenHakuBusiness.Repository
+namespace TruyenHakuBusiness.DesignPattern.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity 
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly AppDbContext _context;
         private DbSet<T> _dbSet;
         public GenericRepository(AppDbContext context)
         {
             _context = context;
-            if(_dbSet == null)
+            if (_dbSet == null)
                 _dbSet = _context.Set<T>();
         }
         public void Add(T entity)
         {
-             _context.Set<T>().Add(entity);
+            _context.Set<T>().Add(entity);
         }
         public void AddRange(IEnumerable<T> entities)
         {
@@ -54,9 +54,18 @@ namespace TruyenHakuBusiness.Repository
             return _dbSet.AsNoTracking();
         }
 
-        public async Task<T> GetByIdAsync(long id)
+        public async Task<T> GetByIdAsync(long id, params Expression<Func<T, object>>[] includes)
         {
-            return await GetAll().Where(x=>x.Id == id).FirstOrDefaultAsync();
+            var query = _dbSet.AsNoTracking().Where(x => x.Id == id);
+            if (includes.Length > 0)
+            {
+                foreach (var item in includes)
+                {
+                    query = query.Include(item);
+                }
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
         public void SaveChanges()
         {
@@ -68,7 +77,7 @@ namespace TruyenHakuBusiness.Repository
             await _context.SaveChangesAsync();
         }
 
-        
+
 
     }
 }

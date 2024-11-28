@@ -7,7 +7,6 @@ namespace TruyenHakuModels.Entities
     {
         public string Name { get; set; }
 
-        [Column("MangaId")]
-        public required Manga Manga { get; set; }
+        
     }
 }

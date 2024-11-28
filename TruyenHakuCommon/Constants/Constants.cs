@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace TruyenHakuCommon.Constants
 {
@@ -16,7 +17,7 @@ namespace TruyenHakuCommon.Constants
             public const string JWT_VALIDISSUER = "JWT:ValidIssuer";
             public const string JWT_SECRET = "JWT:Secret";
             public const string JWT_EXPIREMINUTES = "JWT:RefreshExpireMinute";
-
+            public const string DEFAULT_ROOT_DIRECTORY = "DefaultRootDirectory";
         }
 
         public class Controller
@@ -28,6 +29,9 @@ namespace TruyenHakuCommon.Constants
             public const string ADMIN = "Admin";
             public const string USER = "User";
         }
-        
+        public class PathFile
+        {
+            public const string DEFAULT_ROOT_DIRECTORY = "E:\\Data Manga";
+        }
     }
 }

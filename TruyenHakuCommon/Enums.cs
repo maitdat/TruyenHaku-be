@@ -31,5 +31,13 @@ namespace TruyenHakuCommon
             Horror = 14,
             SliceOfLife = 15,
         }
+
+        public enum Status
+        {
+            Completed = 1,
+            OnUpdated,
+            All
+        }
+
     }
 }

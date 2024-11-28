@@ -13,7 +13,7 @@ namespace TruyenHakuCommon
         public string? ModifierName { get; set; }
         public virtual void PrepareSave(IHttpContextAccessor httpContextAccessor, EntityState state)
         {
-            var identityName = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.Name).Value;
+            var identityName = httpContextAccessor?.HttpContext?.User?.FindFirst(ClaimTypes.Name)?.Value;
             var now = DateTime.Now;
             string creatorName = string.IsNullOrEmpty(CreatorName) ? "unknown" : CreatorName;
             if (state == EntityState.Added)

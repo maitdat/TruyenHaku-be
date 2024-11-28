@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TruyenHakuBusiness.Repository;
+using TruyenHakuBusiness.DesignPattern.Repository;
 using TruyenHakuCommon;
 
-namespace TruyenHakuBusiness.UnitOfWork
+namespace TruyenHakuBusiness.DesignPattern.UnitOfWork
 {
     public interface IUnitofWork : IDisposable
     {

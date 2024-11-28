@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TruyenHakuCommon.Manga
+namespace TruyenHakuModels.ResponseModels.Application.Category
 {
-    internal class CategoriesEnum
+    internal class CategoryResponse
     {
     }
 }

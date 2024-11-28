@@ -6,13 +6,14 @@ namespace TruyenHakuModels.Entities
     public class Manga : BaseEntityCommon
     {
         public required string Name { get; set; }
-        public string AnotherName { get; set; }
-        public List<MangaCategory> MangaCategories { get; set; }
-        public long TotalChapter { get; set; }
+        public string? AnotherName { get; set; }
+        public ICollection<MangaCategory>? MangaCategories { get; set; } = new List<MangaCategory>();
+        public ICollection<Chapter>? Chapters { get; set; } = new List<Chapter>();
         public float LastChapter { get; set; }
         [Column("AuthorId")]
         public Author? Author { get; set; }
-        public long TotalView { get; set; } 
-        public string FolderPath { get; set; }
+        public string? FolderPath { get; set; }
+        public long TotalLikes {  get; set; }
+        public Enums.Status Status { get; set; }
     }
 }
