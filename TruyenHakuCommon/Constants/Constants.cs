@@ -33,5 +33,12 @@ namespace TruyenHakuCommon.Constants
         {
             public const string DEFAULT_ROOT_DIRECTORY = "E:\\Data Manga";
         }
+
+        public class Pagination
+        {
+            public const int PAGE_NO_DEFAULT = 1;
+            public const int PAGE_SIZE_DEFAULT = 20;
+            public const int PAGE_SIZE_MANGA = 36;
+        }
     }
 }

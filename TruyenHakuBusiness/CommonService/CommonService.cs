@@ -20,7 +20,8 @@ namespace TruyenHakuBusiness.CommonService
                 var path = Path.Combine(filePath, $"{fileName}.jpg");
 
                 var response = await client.GetAsync(imgUrl);
-                response.EnsureSuccessStatusCode();
+                
+                if (!response.IsSuccessStatusCode) { return; }
 
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 using (var fileStream = new FileStream(path, FileMode.Create))
@@ -31,6 +32,7 @@ namespace TruyenHakuBusiness.CommonService
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             }
         }
 

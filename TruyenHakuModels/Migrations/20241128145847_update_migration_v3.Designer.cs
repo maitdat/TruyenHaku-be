@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruyenHakuModels;
 
@@ -11,9 +12,11 @@ using TruyenHakuModels;
 namespace TruyenHakuModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241128145847_update_migration_v3")]
+    partial class update_migration_v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -296,12 +299,9 @@ namespace TruyenHakuModels.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameFolder")
+                    b.Property<string>("PathDirectory")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Views")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -319,8 +319,7 @@ namespace TruyenHakuModels.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AnotherName")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("AuthorId")
                         .HasColumnType("bigint");
@@ -334,33 +333,26 @@ namespace TruyenHakuModels.Migrations
                     b.Property<DateTime?>("DateModified")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasMaxLength(1200)
-                        .HasColumnType("nvarchar(1200)");
+                    b.Property<string>("FolderPath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<float>("LastChapter")
+                        .HasColumnType("real");
 
                     b.Property<string>("ModifierName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("NameFolder")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<long>("TotalLikes")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("TotalViews")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -558,84 +550,6 @@ namespace TruyenHakuModels.Migrations
                             ListChapterSelectors = "#list-chapter-comic li a",
                             MangaNameSelectors = "",
                             WebName = "TiTruyen"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            AnotherNameSelectors = "kokoko",
-                            AuthorSelectors = "",
-                            Https = "",
-                            ImageAttribute = "src",
-                            ImageSelectors = ".reading-content img",
-                            ImageThumbURLSelectors = ".summary_image img",
-                            ListChapterSelectors = ".listing-chapters_wrap li a",
-                            MangaNameSelectors = ".post-title h1",
-                            WebName = "qManga"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            AnotherNameSelectors = "kokoko",
-                            AuthorSelectors = "",
-                            Https = "",
-                            ImageAttribute = "src",
-                            ImageSelectors = ".reading-content img",
-                            ImageThumbURLSelectors = ".summary_image img",
-                            ListChapterSelectors = ".listing-chapters_wrap li a",
-                            MangaNameSelectors = ".post-title h1",
-                            WebName = "truyenvn"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            AnotherNameSelectors = "kokoko",
-                            AuthorSelectors = "kokoko",
-                            Https = "",
-                            ImageAttribute = "src",
-                            ImageSelectors = "#list_img img",
-                            ImageThumbURLSelectors = ".summary_image img",
-                            ListChapterSelectors = ".works-chapter-list a",
-                            MangaNameSelectors = ".book_other h1",
-                            WebName = "truyenqq5"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            AnotherNameSelectors = "kokoko",
-                            AuthorSelectors = "kokoko",
-                            Https = "",
-                            ImageAttribute = "src",
-                            ImageSelectors = ".reading-detail img",
-                            ImageThumbURLSelectors = ".col-image img",
-                            ListChapterSelectors = ".list-chapter nav li a",
-                            MangaNameSelectors = ".title-detail",
-                            WebName = "nettruyenqqviet"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            AnotherNameSelectors = "kokoko",
-                            AuthorSelectors = "kokoko",
-                            Https = "",
-                            ImageAttribute = "src",
-                            ImageSelectors = ".reading-detail img",
-                            ImageThumbURLSelectors = "kokoko",
-                            ListChapterSelectors = ".chapter-table nav tr a",
-                            MangaNameSelectors = "kokoko",
-                            WebName = "khotruyen2"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            AnotherNameSelectors = "kokoko",
-                            AuthorSelectors = "kokoko",
-                            Https = "",
-                            ImageAttribute = "src",
-                            ImageSelectors = ".reading-detail img",
-                            ImageThumbURLSelectors = "kokoko",
-                            ListChapterSelectors = ".list-chapter nav li a",
-                            MangaNameSelectors = ".title-detail",
-                            WebName = "nhattruyenss"
                         });
                 });
 

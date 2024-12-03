@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using TruyenHakuCommon;
 
 namespace TruyenHakuModels.Entities
@@ -12,7 +7,8 @@ namespace TruyenHakuModels.Entities
     {
         [Column("MangaId")]
         public Manga Manga { get; set; }
-        public string Name { get; set; }
-        public string PathDirectory { get; set; }
+        public required string Name { get; set; }
+        public required string NameFolder { get; set; }
+        public int Views { get; set; }
     }
 }

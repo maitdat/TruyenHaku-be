@@ -145,8 +145,108 @@ namespace TruyenHakuModels
                     ImageSelectors = "#list_image .page-chapter img",
                     ImageAttribute = "src",
                     Https = "https://truyenqq.com"
+                },
+                new WebCssSelector
+                {
+                    Id = 3, // Hoặc sử dụng một ID cố định nếu cần
+                    WebName = "TiTruyen",
+                    MangaNameSelectors = "",
+                    AnotherNameSelectors = "",
+                    AuthorSelectors = "",
+                    ImageThumbURLSelectors = "",
+                    ListChapterSelectors = "#list-chapter-comic li a",
+                    ImageSelectors = ".relative img",
+                    ImageAttribute = "src",
+                    Https = "https://titruyen.com/"
+                },
+                new WebCssSelector
+                {
+                    Id = 4,
+                    WebName = "qManga",
+                    MangaNameSelectors = ".post-title h1",
+                    AnotherNameSelectors = "kokoko",
+                    AuthorSelectors = "",
+                    ImageThumbURLSelectors = ".summary_image img",
+                    ListChapterSelectors = ".listing-chapters_wrap li a",
+                    ImageSelectors = ".reading-content img",
+                    ImageAttribute = "src",
+                    Https = ""
+                    //https://qmanga.pro/truyen-tranh/
+                },
+                new WebCssSelector
+                {
+                    Id = 5,
+                    WebName = "truyenvn",
+                    MangaNameSelectors = ".post-title h1",
+                    AnotherNameSelectors = "kokoko",
+                    AuthorSelectors = "",
+                    ImageThumbURLSelectors = ".summary_image img",
+                    ListChapterSelectors = ".listing-chapters_wrap li a",
+                    ImageSelectors = ".reading-content img",
+                    ImageAttribute = "src",
+                    Https = "",
+                    //
+                },
+
+                new WebCssSelector
+                {
+                    Id = 6,
+                    WebName = "truyenqq5",
+                    MangaNameSelectors = ".book_other h1",
+                    AnotherNameSelectors = "kokoko",
+                    AuthorSelectors = "kokoko",
+                    ImageThumbURLSelectors = ".summary_image img",
+                    ListChapterSelectors = ".works-chapter-list a",
+                    ImageSelectors = "#list_img img",
+                    ImageAttribute = "src",
+                    Https = "",
+                    //https://truyenqq5.com/
+                },
+                new WebCssSelector
+                {
+                    Id = 7,
+                    WebName = "nettruyenqqviet",
+                    MangaNameSelectors = ".title-detail",
+                    AnotherNameSelectors = "kokoko",
+                    AuthorSelectors = "kokoko",
+                    ImageThumbURLSelectors = ".col-image img",
+                    ListChapterSelectors = ".list-chapter nav li a",
+                    ImageSelectors = ".reading-detail img",
+                    ImageAttribute = "src",
+                    Https = "",
+                    //https://nettruyenqqviet.com/
+                },
+                new WebCssSelector
+                {
+                    Id = 8,
+                    WebName = "khotruyen2",
+                    MangaNameSelectors = "kokoko",
+                    AnotherNameSelectors = "kokoko",
+                    AuthorSelectors = "kokoko",
+                    ImageThumbURLSelectors = "kokoko",
+                    ListChapterSelectors = ".chapter-table nav tr a",
+                    ImageSelectors = ".reading-detail img",
+                    ImageAttribute = "src",
+                    Https = "",
+                    //https://khotruyen2.com/
+                },
+                new WebCssSelector
+                {
+                    Id = 9,
+                    WebName = "nhattruyenss",
+                    MangaNameSelectors = ".title-detail",
+                    AnotherNameSelectors = "kokoko",
+                    AuthorSelectors = "kokoko",
+                    ImageThumbURLSelectors = "kokoko",
+                    ListChapterSelectors = ".list-chapter nav li a",
+                    ImageSelectors = ".reading-detail img",
+                    ImageAttribute = "src",
+                    Https = "",
+                    //https://www.nhattruyenss.net/truyen-tranh
                 }
-            );
+            //https://nhattruyenv.com/truyen-tranh
+            //https://nettruyenww.com/truyen-tranh/berserk
+            ); ; 
         }
 
 

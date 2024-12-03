@@ -39,5 +39,14 @@ namespace TruyenHakuCommon
             All
         }
 
+        public enum SortManga
+        {
+            ModifiedDateDes = 1,
+            ModifiedDateAsc ,
+            CreatedDateDes ,
+            CreatedDateAsc ,
+            TotalViewsAsc
+        }
+
     }
 }

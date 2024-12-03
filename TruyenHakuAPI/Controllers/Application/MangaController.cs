@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
+﻿using Microsoft.AspNetCore.Mvc;
 using TruyenHakuBusiness.ApplicationService.MangaService;
+using TruyenHakuBusiness.DesignPattern.UnitOfWork;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels.RequestModels.Application.Manga;
 
@@ -12,21 +11,32 @@ namespace TruyenHakuAPI.Controllers.Application
     public class MangaController : ControllerBase
     {
         private IMangaService _mangaService;
+        private IUnitofWork _unitofWork;
        
-        public MangaController(IMangaService mangaService)
+        public MangaController(IMangaService mangaService, IUnitofWork unitofWork)
         {
             _mangaService = mangaService;
+            _unitofWork = unitofWork;
             
         }
 
        
-        [HttpPost]
-        public async Task<IActionResult> CrawlThenAddManga (CreateMangaRequestModel createMangaRequestModel)
+        [HttpPost("{webCrawlId}")]
+        public async Task<IActionResult> CrawlThenAddManga ([FromRoute]long webCrawlId, CreateMangaRequestModel createMangaRequestModel)
         {
-            var res = await _mangaService.CrawlThenAddManga(createMangaRequestModel);
+            var res = await _mangaService.CrawlThenAddManga(webCrawlId, createMangaRequestModel);
             if (res.Succeed)
                 return Ok();
-            return BadRequest();
+            return BadRequest(res.Message);
+        }
+
+        [HttpPost("{webCrawlId}")]
+        public async Task<IActionResult> CrawlThenAddListManga([FromRoute] long webCrawlId, List<CreateMangaRequestModel> listCreateMangaRequestModel)
+        {
+            var res = await _mangaService.CrawlThenAddListManga(webCrawlId, listCreateMangaRequestModel);
+            if (res.Succeed)
+                return Ok();
+            return BadRequest(res.Message);
         }
 
         [HttpPost]
@@ -35,7 +45,7 @@ namespace TruyenHakuAPI.Controllers.Application
             var res = await _mangaService.AddManga(createMangaRequestModel);
             if (res.Succeed)
                 return Ok();
-            return BadRequest();
+            return BadRequest(res.Message);
         }
 
         [HttpGet("{id}")]
@@ -47,22 +57,24 @@ namespace TruyenHakuAPI.Controllers.Application
             return BadRequest();
         }
 
-        [AllowAnonymous]
-        [HttpGet("{pathFolder}")]
-        public async Task<IActionResult> GetChapter(string pathFolder)
+        [HttpGet]
+        public async Task<IActionResult> GetPagedManga([FromQuery] SearchFilterManga searchFilterManga)
         {
-            if (Directory.Exists(pathFolder))
-            {
-                DirectoryInfo di = new DirectoryInfo(pathFolder);
-                var files = di.GetFiles();
+            var res = await _mangaService.GetPagedManga(searchFilterManga);
+            if (res.Data.Count()>0)
+                return Ok(res);
+            return BadRequest();
+        }
 
-                var listImgsName = files.Select(x=>x.Name)
-                    .OrderBy(x=>int.Parse(Regex.Match(x,@"\d+").Value))
-                    .ToList();
-                
-                return Ok(listImgsName);
-            }
-            return BadRequest();    
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveManga(long id)
+        {
+            var res = await _mangaService.RemoveManga(id);
+            if (res.Succeed)
+                return Ok(res);
+            return BadRequest(res.Errors);
         }
 
     }

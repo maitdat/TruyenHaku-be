@@ -6,8 +6,11 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 {
     public interface IMangaService
     {
-        public Task<BaseResponse> CrawlThenAddManga(CreateMangaRequestModel model);
-        public Task<BaseResponse> AddManga (CreateMangaRequestModel model);
-        public Task<GetInfoMangaResponse> GetManga(long id);
+        Task<ResponseToClient> CrawlThenAddManga(long webCrawlId, CreateMangaRequestModel model);
+        Task<ResponseToClient> CrawlThenAddListManga(long webCrawlId, List<CreateMangaRequestModel> models);
+        Task<ResponseToClient> AddManga (CreateMangaRequestModel model);
+        Task<GetInfoMangaResponse> GetManga(long id);
+        Task<ResponseToClient> RemoveManga (long id);
+        Task<BasePaginationResponse<GetInfoMangaResponse>> GetPagedManga(SearchFilterManga searchFilterManga);
     }
 }
