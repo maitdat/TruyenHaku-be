@@ -24,33 +24,56 @@ namespace TruyenHakuBusiness.TokenService
         {
             var newToken = new JwtSecurityTokenHandler();
 
-            var secretKeyBytes = Encoding.UTF8.GetBytes(_configuration[Constants.AppSettingKeys.JWT_SECRET]);
+            var secretKeyBytes = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[Constants.AppSettingKeys.JWT_SECRET])) ;
      
             var roles =await _userManager.GetRolesAsync(user);
 
-            var tokenDescription = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[] {
+            var token = new JwtSecurityToken(
+                issuer: _configuration[Constants.AppSettingKeys.JWT_VALIDISSUER],
+                audience: _configuration[Constants.AppSettingKeys.JWT_VALIDAUDIENCE],
+                expires: DateTime.Now.AddMinutes(20),
+                claims: CreateClaimIdentity(user,roles),
+                signingCredentials: new SigningCredentials(secretKeyBytes, SecurityAlgorithms.HmacSha512Signature)
+            );
+
+            //var tokenDescription = new SecurityTokenDescriptor
+            //{
+            //    Subject = CreateClaimIdentity(user,roles),
+            //    Expires = DateTime.Now.AddMinutes(double.Parse(_configuration[Constants.AppSettingKeys.JWT_EXPIREMINUTES])),
+            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature)
+            //};
+
+     
+
+            //var token = newToken.CreateToken(tokenDescription);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
+
+        }
+
+        private List<Claim> CreateClaimIdentity(UserAccount user,IList<string> roles)
+        {
+            var claims = new List<Claim>();
+            claims.AddRange([
                     new Claim(ClaimTypes.Name, user?.UserName),
                     new Claim(ClaimTypes.Sid, user?.Id),
                     user?.Email != null ? new Claim(JwtRegisteredClaimNames.Email, user?.Email) : null,
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim("UserName", user?.UserName),
-                    new Claim("Id", user?.Id.ToString()),
-                    //new Claim(ClaimTypes.Role,roles != null ?  string.Join(",",roles) : null)
-                }),
-                Expires = DateTime.Now.AddMinutes(double.Parse(_configuration[Constants.AppSettingKeys.JWT_EXPIREMINUTES])),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature)
-            };
-
-            foreach (var userRole in roles) 
+                    new Claim("Id", user?.Id.ToString())]
+                    );
+            foreach(var userRole in roles)
             {
-                tokenDescription?.Subject?.AddClaim(new Claim(ClaimTypes.Role, userRole));
+                claims.Add(new Claim (ClaimTypes.Role, userRole));
             }
-
-            var token = newToken.CreateToken(tokenDescription);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            
+            return claims;
         }
+        
+        //public async Task<string> RefreshToken(string token)
+        //{
+
+        //}
     }
 }

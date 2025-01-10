@@ -16,7 +16,7 @@ namespace TruyenHakuAPI.Controllers
         {
             _roleService = roleService;
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddUserToRolesAsync(RoleRequestModel roleRequestModel)
         {
@@ -24,6 +24,14 @@ namespace TruyenHakuAPI.Controllers
             if (res)
                 return Ok();
              return BadRequest();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync (string roleName)
+        {
+            var res = await _roleService.CreateAsync(roleName);
+            if (res)
+                return Ok();
+            return BadRequest();
         }
 
     }

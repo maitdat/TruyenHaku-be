@@ -13,5 +13,6 @@ namespace TruyenHakuBusiness.AuthService
     {
         public Task<IdentityResult> Register (UserModel userInfo);
         public Task<LoginResponse> Login (LoginRequest userInfo);
+        Task<IList<string>> GetRoles(string userId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TruyenHakuCommon;
 using TruyenHakuModels.Entities;
 
@@ -9,31 +10,35 @@ namespace TruyenHakuModels
     {
         public static void SeedData(ModelBuilder builder)
         {
-            SeedRole(builder);
             SeedCategory(builder);
             SeedWebCssSelectors(builder);
         }
 
-        private static void SeedRole(ModelBuilder builder)
+        public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            //builder.Entity<IdentityRole>().HasData(new IdentityRole
-            //{
-            //    Name = "Admin",
-            //    ConcurrencyStamp = "1",
-            //    NormalizedName = "Admin",
-            //},
-            //new IdentityRole
-            //{
-            //    Name = "Manager",
-            //    ConcurrencyStamp = "2",
-            //    NormalizedName = "Manager",
-            //},
-            //new IdentityRole
-            //{
-            //    Name = "Member",
-            //    ConcurrencyStamp = "3",
-            //    NormalizedName = "Member",
-            //});
+            // Danh sách các Role cần seed
+            var roles = new List<string> { "Admin", "User", "Moderator" };
+
+            foreach (var role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+        }
+
+        public static async Task SeedAdminAccount(ModelBuilder builder)
+        {
+            var adminAccounts = new List<UserAccount>()
+            {
+                new UserAccount
+                {
+                    UserName = "admin",
+                    PasswordHash = "",
+                    Email = "maitd2010@gmail.com"
+                }
+            };
         }
 
         private static void SeedCategory (ModelBuilder builder)
