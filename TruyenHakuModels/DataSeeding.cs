@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TruyenHakuCommon;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
+using TruyenHakuModels.Entities.Application;
 
 namespace TruyenHakuModels
 {

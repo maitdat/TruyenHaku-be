@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using TruyenHakuBusiness.DesignPattern.Repository;
 using TruyenHakuCommon;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Application;
 using TruyenHakuModels.RequestModels;
 using TruyenHakuModels.ResponseModels;
 using TruyenHakuModels.ResponseModels.Application.Chapter;

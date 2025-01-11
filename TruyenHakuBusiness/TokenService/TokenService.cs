@@ -5,7 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
 
 namespace TruyenHakuBusiness.TokenService
 {
@@ -36,20 +36,7 @@ namespace TruyenHakuBusiness.TokenService
                 signingCredentials: new SigningCredentials(secretKeyBytes, SecurityAlgorithms.HmacSha512Signature)
             );
 
-            //var tokenDescription = new SecurityTokenDescriptor
-            //{
-            //    Subject = CreateClaimIdentity(user,roles),
-            //    Expires = DateTime.Now.AddMinutes(double.Parse(_configuration[Constants.AppSettingKeys.JWT_EXPIREMINUTES])),
-            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(secretKeyBytes), SecurityAlgorithms.HmacSha512Signature)
-            //};
-
-     
-
-            //var token = newToken.CreateToken(tokenDescription);
-
             return new JwtSecurityTokenHandler().WriteToken(token);
-
-
         }
 
         private List<Claim> CreateClaimIdentity(UserAccount user,IList<string> roles)

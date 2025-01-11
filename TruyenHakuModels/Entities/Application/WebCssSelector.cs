@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TruyenHakuCommon;
 
-namespace TruyenHakuModels.Entities
+namespace TruyenHakuModels.Entities.Application
 {
     public class WebCssSelector : BaseEntity
     {
-        public string? WebName {  get; set; }
+        public string? WebName { get; set; }
         public string? MangaNameSelectors { get; set; }
         public string? AnotherNameSelectors { get; set; }
         public string? AuthorSelectors { get; set; }

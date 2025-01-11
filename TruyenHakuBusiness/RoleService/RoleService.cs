@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
 using TruyenHakuModels.RequestModels.RoleRequestModel;
 
 namespace TruyenHakuBusiness.RoleService

@@ -169,7 +169,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("Author", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Category", b =>
@@ -186,7 +186,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
 
                     b.HasData(
                         new
@@ -307,7 +307,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("MangaId");
 
-                    b.ToTable("Chapter");
+                    b.ToTable("Chapter", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
@@ -367,7 +367,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Manga");
+                    b.ToTable("Manga", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.MangaCategory", b =>
@@ -405,7 +405,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("MangaId");
 
-                    b.ToTable("MangaCategory");
+                    b.ToTable("MangaCategory", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.UserAccount", b =>
@@ -517,7 +517,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WebCssSelector");
+                    b.ToTable("WebCssSelector", (string)null);
 
                     b.HasData(
                         new

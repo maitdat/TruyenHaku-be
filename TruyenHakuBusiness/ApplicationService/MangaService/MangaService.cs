@@ -8,7 +8,7 @@ using TruyenHakuBusiness.DesignPattern.Repository;
 using TruyenHakuBusiness.DesignPattern.UnitOfWork;
 using TruyenHakuCommon;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Application;
 using TruyenHakuModels.RequestModels.Application.Manga;
 using TruyenHakuModels.ResponseModels;
 using TruyenHakuModels.ResponseModels.Application.Author;

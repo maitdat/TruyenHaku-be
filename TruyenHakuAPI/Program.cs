@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -10,7 +11,7 @@ using TruyenHakuAPI.Extensions;
 using TruyenHakuAPI.Middleware;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -32,7 +33,7 @@ options.SignIn.RequireConfirmedAccount = true)
 
 // config jwt authentication
 
-builder.Services.AddAuthentication(options=>
+builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -50,9 +51,19 @@ builder.Services.AddAuthentication(options=>
         ValidIssuer = builder.Configuration[Constants.AppSettingKeys.JWT_VALIDISSUER],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration[Constants.AppSettingKeys.JWT_SECRET]))
     };
+})
+.AddGoogle(googleOptions =>
+{
+    // Đọc thông tin Authentication:Google từ appsettings.json
+
+    // Thiết lập ClientID và ClientSecret để truy cập API google
+    googleOptions.ClientId = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CLIENTID];
+    googleOptions.ClientSecret = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CLIENTSECRET];
+    // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
+    //googleOptions.CallbackPath =  builder.Configuration[Constants.AppSettingKeys.GOOGLE_CALLBACKPATH];
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 
 //config password
 
@@ -69,7 +80,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddSwaggerGen(option =>
 {
     //hien thi mo ta tren Swagger

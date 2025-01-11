@@ -4,7 +4,7 @@ using Microsoft.Identity.Client;
 using TruyenHakuBusiness.TokenService;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
 using TruyenHakuModels.RequestModels.Auth;
 using TruyenHakuModels.RequestModels.AuthRequestModel;
 using TruyenHakuModels.ResponseModels;
