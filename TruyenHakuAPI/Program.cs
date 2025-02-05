@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
@@ -60,13 +62,15 @@ builder.Services.AddAuthentication(options =>
     googleOptions.ClientId = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CLIENTID];
     googleOptions.ClientSecret = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CLIENTSECRET];
     // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
-    //googleOptions.CallbackPath =  builder.Configuration[Constants.AppSettingKeys.GOOGLE_CALLBACKPATH];
+    googleOptions.CallbackPath = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CALLBACKPATH];
+
+    googleOptions.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+
 });
 
 
 
 //config password
-
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Password settings.
@@ -115,16 +119,17 @@ builder.Services.AddSwaggerGen(option =>
     option.CustomSchemaIds(type => type.ToString());
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:5173")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
-                      });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: MyAllowSpecificOrigins,
+//                      policy =>
+//                      {
+//                          policy.WithOrigins("http://localhost:5173")
+//                          .AllowAnyHeader()
+//                          .AllowAnyMethod()
+//                          .AllowCredentials();
+//                      });
+//});
 
 // use Service
 builder.Services.AddTransient<ExeptionHandleMiddleware>();
@@ -142,7 +147,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseMiddleware<ExeptionHandleMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
-app.UseCors(MyAllowSpecificOrigins);
+//app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin
+    .AllowCredentials()); // allow credentials
 app.UseAuthentication();
 app.UseAuthorization();
 

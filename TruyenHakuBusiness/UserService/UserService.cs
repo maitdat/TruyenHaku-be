@@ -22,7 +22,7 @@ namespace TruyenHakuBusiness.UserService
             }
             return new UserModel
             {
-                HoTen = user.HoTen,
+                HoTen = user.FullName,
                 Email = user.Email,
                 SDT = user.PhoneNumber,
                 UserName = user.UserName

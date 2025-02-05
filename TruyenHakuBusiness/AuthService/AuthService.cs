@@ -84,7 +84,7 @@ namespace TruyenHakuBusiness.AuthService
             {
                 UserName = userInfo.UserName,
                 Email = userInfo.Email,
-                HoTen = userInfo.HoTen,
+                FullName = userInfo.HoTen,
             };
             var res = await _userManager.CreateAsync(newUser, userInfo.Password);
             return res;

@@ -19,9 +19,9 @@ namespace TruyenHakuCommon.Constants
             public const string JWT_EXPIREMINUTES = "JWT:RefreshExpireMinute";
             public const string DEFAULT_ROOT_DIRECTORY = "DefaultRootDirectory";
 
-            public const string GOOGLE_CLIENTID = "Google:ClientId";
-            public const string GOOGLE_CLIENTSECRET = "Google:ClientSecret";
-            public const string GOOGLE_CALLBACKPATH = "Google:CallbackPath";
+            public const string GOOGLE_CLIENTID = "Authentication:Google:ClientId";
+            public const string GOOGLE_CLIENTSECRET = "Authentication:Google:ClientSecret";
+            public const string GOOGLE_CALLBACKPATH = "Authentication:Google:CallbackPath";
 
         }
 

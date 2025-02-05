@@ -4,7 +4,7 @@ namespace TruyenHakuModels.Entities.Account
 {
     public class UserAccount : IdentityUser
     {
-        public string HoTen { get; set; }
-        public DateTime NgaySinh { get; set; }
+        public string FullName { get; set; }
+        public DateTime BirthDate { get; set; }
     }
 }
