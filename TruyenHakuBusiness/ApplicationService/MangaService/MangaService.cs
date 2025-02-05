@@ -1,16 +1,11 @@
 ﻿using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Linq.Expressions;
-using System.Net;
 using TruyenHakuBusiness.CommonService;
-using TruyenHakuBusiness.DesignPattern.Repository;
-using TruyenHakuBusiness.DesignPattern.UnitOfWork;
 using TruyenHakuCommon;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Application;
 using TruyenHakuModels.RequestModels.Application.Manga;
 using TruyenHakuModels.ResponseModels;
 using TruyenHakuModels.ResponseModels.Application.Author;

@@ -13,5 +13,6 @@ namespace TruyenHakuBusiness.RoleService
         public Task<bool> AddUserRoleAsync(RoleRequestModel roleRequest);
         public Task UpdateRoleAsync();
         public Task DeleteRoleAsync();
+        Task<bool> CreateAsync(string roleName);
     }
 }

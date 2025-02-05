@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TruyenHakuCommon.Constants;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
 using TruyenHakuModels.RequestModels.RoleRequestModel;
 
 namespace TruyenHakuBusiness.RoleService
@@ -14,7 +14,15 @@ namespace TruyenHakuBusiness.RoleService
             _roleManager = roleManager;
             _userManager = userManager;
         }
-
+        public async Task<bool> CreateAsync(string roleName)
+        {
+            if(!await _roleManager.RoleExistsAsync(roleName))
+            {
+                await _roleManager.CreateAsync(new IdentityRole { Name = roleName});
+                return true;
+            }
+            return false;
+        }
         public async Task<bool> AddUserRoleAsync(RoleRequestModel roleRequest)
         {
             var user =await _userManager.FindByIdAsync(roleRequest.UserId);

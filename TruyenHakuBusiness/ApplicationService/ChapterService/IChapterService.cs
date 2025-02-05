@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Application;
 using TruyenHakuModels.RequestModels;
 using TruyenHakuModels.ResponseModels;
 using TruyenHakuModels.ResponseModels.Application.Chapter;

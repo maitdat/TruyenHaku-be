@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using TruyenHakuModels.Entities;
+using TruyenHakuModels.Entities.Account;
+using TruyenHakuModels.Entities.Application;
 using static TruyenHakuCommon.Constants.Constants;
 
 namespace TruyenHakuModels

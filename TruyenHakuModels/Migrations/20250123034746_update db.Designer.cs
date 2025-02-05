@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruyenHakuModels;
 
@@ -11,9 +12,11 @@ using TruyenHakuModels;
 namespace TruyenHakuModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250123034746_update db")]
+    partial class updatedb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,7 +244,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author", (string)null);
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Application.Category", b =>
@@ -258,7 +261,84 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Name = "Adventure"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Name = "Isekai"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Name = "Comedy"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            Name = "Psychological"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            Name = "Supernatural"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            Name = "Ecchi"
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Name = "Shounen"
+                        },
+                        new
+                        {
+                            Id = 11L,
+                            Name = "Seinen"
+                        },
+                        new
+                        {
+                            Id = 12L,
+                            Name = "Soujo"
+                        },
+                        new
+                        {
+                            Id = 13L,
+                            Name = "Yaoi"
+                        },
+                        new
+                        {
+                            Id = 14L,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 15L,
+                            Name = "SliceOfLife"
+                        });
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Application.Chapter", b =>
@@ -302,7 +382,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("MangaId");
 
-                    b.ToTable("Chapter", (string)null);
+                    b.ToTable("Chapter");
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Application.Manga", b =>
@@ -362,7 +442,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Manga", (string)null);
+                    b.ToTable("Manga");
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Application.MangaCategory", b =>
@@ -400,7 +480,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("MangaId");
 
-                    b.ToTable("MangaCategory", (string)null);
+                    b.ToTable("MangaCategory");
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Application.WebCssSelector", b =>
@@ -440,7 +520,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WebCssSelector", (string)null);
+                    b.ToTable("WebCssSelector");
 
                     b.HasData(
                         new

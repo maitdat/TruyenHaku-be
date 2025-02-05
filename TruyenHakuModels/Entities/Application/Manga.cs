@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using TruyenHakuCommon;
 
-namespace TruyenHakuModels.Entities
+namespace TruyenHakuModels.Entities.Application
 {
     public class Manga : BaseEntityCommon
     {
@@ -16,8 +16,8 @@ namespace TruyenHakuModels.Entities
         public Author? Author { get; set; }
         [MaxLength(50)]
         public required string NameFolder { get; set; }
-        public long TotalLikes {  get; set; }
-        public long TotalViews {  get; set; }
+        public long TotalLikes { get; set; }
+        public long TotalViews { get; set; }
         public Enums.Status Status { get; set; }
         [MaxLength(1200)]
         public string? Description { get; set; }

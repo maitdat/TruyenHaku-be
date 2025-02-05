@@ -1,10 +1,98 @@
-﻿using System.Text.RegularExpressions;
-using TruyenHakuCommon.Constants;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace TruyenHakuCommon
 {
     public static class Utilities
     {
+        private static readonly HttpClient client = new HttpClient();
+
+        public static async Task SendExceptionToWebhookAsync(
+            Exception? ex,
+            string? data = "",
+            DateTime from = default,
+            DateTime? to = default,
+            string webhookUrl = "https://discord.com/api/webhooks/1328564383156146276/Vv3lpYhmGg-nvTkqvDtmip5NzQFGl_4_c7ffCVfUvu3tKBXlakZjxDATHVtMGTMZzwkb",
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            try
+            {
+                var contentMessage = $"{DateTime.Now}\n" +
+                                     $"**Exception occurred:**\n" +
+                                     $"```{ex.Message ?? "No exception message"}```\n" +
+                                     $"**Stack Trace:**\n" +
+                                     $"```{ex.StackTrace ?? "No stack trace available"}```\n" +
+                                     $"**Path:**\n" +
+                                     $"```Function: {memberName} at {sourceFilePath}:{sourceLineNumber}```";
+                if (!string.IsNullOrEmpty(data))
+                {
+                    contentMessage += $"\n**Data:**\n" +
+                                      $"```{data}```";
+                }
+
+                var jsonPayload = new
+                {
+                    content = contentMessage
+                };
+
+                var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(jsonPayload);
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync(webhookUrl, content);
+                response.EnsureSuccessStatusCode(); // Throw if the response indicates an error
+            }
+            catch (Exception sendEx)
+            {
+                // Log the exception that occurred while trying to send the webhook
+                Console.WriteLine("Failed to send exception to Discord webhook: " + sendEx.Message);
+            }
+        }
+
+        public static async Task SendMessageToWebhookAsync(
+            string message,
+            string? data = "",
+            DateTime from = default,
+            DateTime? to = default,
+            string webhookUrl = "https://discord.com/api/webhooks/1328564383156146276/Vv3lpYhmGg-nvTkqvDtmip5NzQFGl_4_c7ffCVfUvu3tKBXlakZjxDATHVtMGTMZzwkb",
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
+            {
+                try
+                {
+                    var contentMessage = $"{DateTime.Now}\n" +
+                                         $"**Message:**\n" +
+                                         $"```{message}```\n" +
+                                         $"**Path:**\n" +
+                                         $"```Function: {memberName} at {sourceFilePath}:{sourceLineNumber}```";
+
+                    if (!string.IsNullOrEmpty(data))
+                    {
+                        contentMessage += $"\n**Data:**\n" +
+                                          $"```{data}```";
+                    }
+
+                    var jsonPayload = new
+                    {
+                        content = contentMessage
+                    };
+
+                    var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(jsonPayload);
+                    var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                    var response = await client.PostAsync(webhookUrl, content);
+                    response.EnsureSuccessStatusCode(); // Throw if the response indicates an error
+                }
+                catch (Exception sendEx)
+                {
+                    // Log the exception that occurred while trying to send the webhook
+                    Console.WriteLine("Failed to send message to Discord webhook: " + sendEx.Message);
+                }
+        }
+
 
         public static IEnumerable<TSource> ApplyPaging<TSource>(this IEnumerable<TSource> source, int pageNo, int pageSize)
         {
@@ -74,5 +162,7 @@ namespace TruyenHakuCommon
             string normalized = Regex.Replace(result, "-{2,}", "-");
             return normalized;
         }
+
+        
     }
 }
