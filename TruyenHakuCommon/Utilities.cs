@@ -59,7 +59,7 @@ namespace TruyenHakuCommon
 
         public static string ConcatChapterDir(string mangaDir, string chapterDir)
         {
-            return string.Concat( Constants.Constants.PathFile.DEFAULT_ROOT_DIRECTORY ,@"\\", mangaDir, @"\\", chapterDir);
+            return string.Concat( Constants.Constants.PathFile.DEFAULT_ROOT_DIRECTORY ,@"\", mangaDir, @"\", chapterDir);
         }
 
         public static string SanitizeFolderName(string folderName)

@@ -14,5 +14,6 @@ namespace TruyenHakuModels.ResponseModels.Application.Chapter
         public string ChapterDir { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
+        public List<string> LinkImgs { get; set; }
     }
 }

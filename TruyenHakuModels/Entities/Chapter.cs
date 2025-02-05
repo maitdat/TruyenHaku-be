@@ -9,6 +9,6 @@ namespace TruyenHakuModels.Entities
         public Manga Manga { get; set; }
         public required string Name { get; set; }
         public required string NameFolder { get; set; }
-        public int Views { get; set; }
+        //public int Views { get; set; }
     }
 }

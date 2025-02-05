@@ -169,7 +169,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("Author", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Category", b =>
@@ -186,84 +186,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "Adventure"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "Isekai"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Name = "Fantasy"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Name = "Comedy"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Name = "Romance"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Name = "Psychological"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            Name = "Supernatural"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            Name = "Ecchi"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            Name = "Shounen"
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            Name = "Seinen"
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            Name = "Soujo"
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            Name = "Yaoi"
-                        },
-                        new
-                        {
-                            Id = 14L,
-                            Name = "Horror"
-                        },
-                        new
-                        {
-                            Id = 15L,
-                            Name = "SliceOfLife"
-                        });
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Chapter", b =>
@@ -307,7 +230,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("MangaId");
 
-                    b.ToTable("Chapter");
+                    b.ToTable("Chapter", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Manga", b =>
@@ -367,7 +290,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Manga");
+                    b.ToTable("Manga", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.MangaCategory", b =>
@@ -405,7 +328,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasIndex("MangaId");
 
-                    b.ToTable("MangaCategory");
+                    b.ToTable("MangaCategory", (string)null);
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.UserAccount", b =>
@@ -517,7 +440,7 @@ namespace TruyenHakuModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WebCssSelector");
+                    b.ToTable("WebCssSelector", (string)null);
 
                     b.HasData(
                         new

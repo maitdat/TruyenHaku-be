@@ -12,8 +12,8 @@ using TruyenHakuModels;
 namespace TruyenHakuModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241203020156_update_migration_v8")]
-    partial class update_migration_v8
+    [Migration("20241204101137_update_migration_v9")]
+    partial class update_migration_v9
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,83 +190,6 @@ namespace TruyenHakuModels.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "Action"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "Adventure"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Name = "Isekai"
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Name = "Fantasy"
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            Name = "Comedy"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Name = "Romance"
-                        },
-                        new
-                        {
-                            Id = 7L,
-                            Name = "Psychological"
-                        },
-                        new
-                        {
-                            Id = 8L,
-                            Name = "Supernatural"
-                        },
-                        new
-                        {
-                            Id = 9L,
-                            Name = "Ecchi"
-                        },
-                        new
-                        {
-                            Id = 10L,
-                            Name = "Shounen"
-                        },
-                        new
-                        {
-                            Id = 11L,
-                            Name = "Seinen"
-                        },
-                        new
-                        {
-                            Id = 12L,
-                            Name = "Soujo"
-                        },
-                        new
-                        {
-                            Id = 13L,
-                            Name = "Yaoi"
-                        },
-                        new
-                        {
-                            Id = 14L,
-                            Name = "Horror"
-                        },
-                        new
-                        {
-                            Id = 15L,
-                            Name = "SliceOfLife"
-                        });
                 });
 
             modelBuilder.Entity("TruyenHakuModels.Entities.Chapter", b =>

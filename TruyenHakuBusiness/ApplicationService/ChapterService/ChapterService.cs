@@ -1,98 +1,107 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.RegularExpressions;
-using TruyenHakuBusiness.DesignPattern.Repository;
 using TruyenHakuCommon;
 using TruyenHakuCommon.Constants;
+using TruyenHakuModels;
 using TruyenHakuModels.Entities;
-using TruyenHakuModels.RequestModels;
-using TruyenHakuModels.ResponseModels;
 using TruyenHakuModels.ResponseModels.Application.Chapter;
 
 namespace TruyenHakuBusiness.ApplicationService.ChapterService
 {
     public class ChapterService : IChapterService
     {
-        private readonly IGenericRepository<Chapter> _chapterRepository;
-        private readonly IGenericRepository<Manga> _mangaRepository;
+        private readonly AppDbContext _appDbContext;
         private const string CHAPTER = "Chapter";
 
-        public ChapterService(IGenericRepository<Chapter> chapterRepository, IGenericRepository<Manga> mangaRepository)
+        public ChapterService(AppDbContext appDbContext)
         {
-            _chapterRepository = chapterRepository;
-            _mangaRepository = mangaRepository;
+            _appDbContext = appDbContext;
         }
 
         public async Task AddChapterAsync(Chapter chapter)
         {
-            _chapterRepository.Add(chapter);
-            await _chapterRepository.SaveChangesAsync();
+            _appDbContext.Chapter.Add(chapter);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task UpdateChapterAsync(Chapter chapter)
         {
-            _chapterRepository.Update(chapter);
-            await _chapterRepository.SaveChangesAsync();
+            _appDbContext.Chapter.Update(chapter);
+            await _appDbContext.SaveChangesAsync();
         }
 
         public async Task DeleteChapterAsync(long chapterId)
         {
-            var chapter = await _chapterRepository.GetByIdAsync(chapterId);
+            var chapter = await _appDbContext.Chapter.Where(x=>x.Id == chapterId).FirstOrDefaultAsync();
             if (chapter != null)
             {
-                _chapterRepository.Remove(chapter);
-                await _chapterRepository.SaveChangesAsync();
+                _appDbContext.Chapter.Remove(chapter);
+                await _appDbContext.SaveChangesAsync();
             }
         }
 
         
 
-        public async Task<BasePaginationResponse<Chapter>> GetChaptersWithPaginationAsync(BasePaginationRequest request)
+        public async Task<List<ChapterResponse>> GetChaptersAsync(long mangaId)
         {
-            var query = _chapterRepository.GetAll();
-
-            // Lọc theo từ khóa
-            if (!string.IsNullOrEmpty(request.Keyword))
+            var res =await _appDbContext.Chapter.Where(x=>x.Manga.Id == mangaId)
+                .Select(x=>new ChapterResponse
             {
-                query = query.Where(x => x.Name.Contains(request.Keyword));
-            }
+                Id = x.Id,
+                ChapterDir = x.NameFolder,
+                Name = x.Name,
+                DateCreated = x.DateCreated,
+            }).ToListAsync();
 
-            var totalItems = query.Count();
-
-            var data = await query
-                .Skip((request.PageNo - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .ToListAsync();
-
-            return new BasePaginationResponse<Chapter>(
-                pageNo: request.PageNo,
-                pageSize: request.PageSize,
-                data: data,
-                totalItem: totalItems
-            );
+            return res;
         }
 
         public async Task<ChapterResponse> GetChapterByIdAsync(long id)
         {
-            var chapter =await _chapterRepository
-                .GetByIdAsync(id, x => x.Manga);
+            
+            var chapter = await _appDbContext.Chapter
+                .Include(x=>x.Manga)
+                .Where(x=>x.Id == id).FirstOrDefaultAsync();
 
             if (chapter == null)
                 throw new Exception(string.Format(Constants.Commons.NOT_FOUND, CHAPTER));
 
-            chapter.Views = chapter.Views++;
-            _chapterRepository.Update(chapter);
-            await _chapterRepository.SaveChangesAsync();
+            _appDbContext.Chapter.Update(chapter);
+            await _appDbContext.SaveChangesAsync();
 
-            var chapterResponse = new ChapterResponse()
+            var fullPathDir = Utilities.ConcatChapterDir(chapter.Manga.NameFolder, chapter.NameFolder);
+            var pathForServerImg = string.Concat(chapter.Manga.NameFolder, @"/", chapter.NameFolder);
+
+            var httpsNginx = Constants.SeverNginx.HTTPS;
+
+            if (Directory.Exists(fullPathDir))
             {
-                Id = chapter.Id,
-                Name = chapter.Name,
-                ChapterDir = Utilities.ConcatChapterDir(chapter.Manga.NameFolder, chapter.NameFolder),
-                DateCreated = chapter.DateCreated,
-                DateModified = chapter.DateModified,
-            };
-            return chapterResponse;
+                DirectoryInfo di = new DirectoryInfo(fullPathDir);
+                var files = di.GetFiles();
+
+                var listImgsName = files.Select(x => x.Name)
+                    .OrderBy(x => int.Parse(Regex.Match(x, @"\d+").Value))
+                    .ToList();
+
+                var linkImgs = listImgsName.Select(imgName =>
+                    $"{httpsNginx}/{pathForServerImg}/{imgName}").ToList();
+
+                var chapterResponse = new ChapterResponse()
+                {
+                    Id = chapter.Id,
+                    Name = chapter.Name,
+                    ChapterDir = chapter.NameFolder,
+                    DateCreated = chapter.DateCreated,
+                    DateModified = chapter.DateModified,
+                    LinkImgs = linkImgs  // Đây là danh sách các đường dẫn hình ảnh
+                };
+
+                return chapterResponse;
+            }
+
+            throw new Exception("Directory for images not found.");
         }
+
         public Task AddChapterByUploadFolder()
         {
             throw new NotImplementedException();

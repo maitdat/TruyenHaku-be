@@ -33,7 +33,10 @@ namespace TruyenHakuCommon.Constants
         {
             public const string DEFAULT_ROOT_DIRECTORY = "E:\\Data Manga";
         }
-
+        public class SeverNginx
+        {
+            public const string HTTPS = "http://localhost/manga";
+        }
         public class Pagination
         {
             public const int PAGE_NO_DEFAULT = 1;

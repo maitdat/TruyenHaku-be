@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TruyenHakuModels.ResponseModels.Application.Category
 {
-    internal class CategoryResponse
+    public class CategoryResponse
     {
+        public long Id {  get; set; }
+        public string Name { get; set; }
     }
 }

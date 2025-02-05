@@ -20,16 +20,6 @@ namespace TruyenHakuAPI.Controllers.Application
             
         }
 
-       
-        [HttpPost("{webCrawlId}")]
-        public async Task<IActionResult> CrawlThenAddManga ([FromRoute]long webCrawlId, CreateMangaRequestModel createMangaRequestModel)
-        {
-            var res = await _mangaService.CrawlThenAddManga(webCrawlId, createMangaRequestModel);
-            if (res.Succeed)
-                return Ok();
-            return BadRequest(res.Message);
-        }
-
         [HttpPost("{webCrawlId}")]
         public async Task<IActionResult> CrawlThenAddListManga([FromRoute] long webCrawlId, List<CreateMangaRequestModel> listCreateMangaRequestModel)
         {
@@ -52,7 +42,7 @@ namespace TruyenHakuAPI.Controllers.Application
         public async Task<IActionResult> GetManga(long id)
         {
             var res = await _mangaService.GetManga(id);
-            if (res.Id != 0)
+            if (res != null)
                 return Ok(res);
             return BadRequest();
         }
@@ -69,7 +59,7 @@ namespace TruyenHakuAPI.Controllers.Application
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveManga(long id)
+        public async Task<IActionResult> RemoveManga(int id)
         {
             var res = await _mangaService.RemoveManga(id);
             if (res.Succeed)

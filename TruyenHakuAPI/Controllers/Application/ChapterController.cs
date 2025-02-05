@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TruyenHakuBusiness.ApplicationService.ChapterService;
 using TruyenHakuCommon.Constants;
+using TruyenHakuModels.Entities;
 using TruyenHakuModels.RequestModels;
 
 namespace TruyenHakuAPI.Controllers.Application
@@ -28,10 +29,10 @@ namespace TruyenHakuAPI.Controllers.Application
             return Ok(chapter);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetChapters([FromQuery] BasePaginationRequest request)
+        [HttpGet("{mangaId}")]
+        public async Task<IActionResult> GetChapters(long mangaId )
         {
-            var response = await _chapterService.GetChaptersWithPaginationAsync(request);
+            var response = await _chapterService.GetChaptersAsync(mangaId);
             return Ok(response);
         }
     }

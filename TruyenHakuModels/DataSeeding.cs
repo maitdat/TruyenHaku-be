@@ -10,7 +10,7 @@ namespace TruyenHakuModels
         public static void SeedData(ModelBuilder builder)
         {
             SeedRole(builder);
-            SeedCategory(builder);
+            //SeedCategory(builder);
             SeedWebCssSelectors(builder);
         }
 
@@ -36,86 +36,35 @@ namespace TruyenHakuModels
             //});
         }
 
-        private static void SeedCategory (ModelBuilder builder)
+        private static void SeedCategory(ModelBuilder builder)
         {
             builder.Entity<Category>().HasData(
-                new Category
-                {
-                    Id = 1,
-                    Name = "Action"
-                },
-                new Category
-                {
-                    Id = 2,
-                    Name = "Adventure"
-                },
-                new Category
-                {
-                    Id = 3,
-                    Name = "Isekai"
-                },
-                new Category
-                {
-                    Id = 4,
-                    Name = "Fantasy"
-                },
-                new Category
-                {
-                    Id = 5,
-                    Name = "Comedy"
-                },
-                new Category
-                {
-                    Id = 6,
-                    Name = "Romance"
-                },
-                new Category
-                {
-                    Id = 7,
-                    Name = "Psychological"
-                },
-                new Category
-                {
-                    Id = 8,
-                    Name = "Supernatural"
-                },
-                new Category
-                {
-                    Id = 9,
-                    Name = "Ecchi"
-                },
-                new Category
-                {
-                    Id = 10,
-                    Name = "Shounen"
-                },
-                new Category
-                {
-                    Id = 11,
-                    Name = "Seinen"
-                },
-                new Category
-                {
-                    Id = 12,
-                    Name = "Soujo"
-                },
-                new Category
-                {
-                    Id = 13,
-                    Name = "Yaoi"
-                },
-                new Category
-                {
-                    Id = 14,
-                    Name = "Horror"
-                },
-                new Category
-                {
-                    Id = 15,
-                    Name = "SliceOfLife"
-                }
+                new Category { Id = 1, Name = "Action" },
+                new Category { Id = 2, Name = "Adventure" },
+                new Category { Id = 3, Name = "Isekai" },
+                new Category { Id = 4, Name = "Fantasy" },
+                new Category { Id = 5, Name = "Comedy" },
+                new Category { Id = 6, Name = "Romance" },
+                new Category { Id = 7, Name = "Psychological" },
+                new Category { Id = 8, Name = "Supernatural" },
+                new Category { Id = 9, Name = "Ecchi" },
+                new Category { Id = 10, Name = "Shounen" },
+                new Category { Id = 11, Name = "Seinen" },
+                new Category { Id = 12, Name = "Soujo" },
+                new Category { Id = 13, Name = "Yaoi" },
+                new Category { Id = 14, Name = "Horror" },
+                new Category { Id = 15, Name = "Slice Of Life" },
+                new Category { Id = 16, Name = "Drama" },
+                new Category { Id = 17, Name = "School Life" },
+                new Category { Id = 18, Name = "Tragedy" },
+                new Category { Id = 19, Name = "Mystery" },
+                new Category { Id = 20, Name = "Trinh Thám" },
+                new Category { Id = 21, Name = "Gore" },
+                new Category { Id = 22, Name = "Sport" },
+                new Category { Id = 23, Name = "Historical" }
             );
         }
+
 
         private static void SeedWebCssSelectors(ModelBuilder builder)
         {
