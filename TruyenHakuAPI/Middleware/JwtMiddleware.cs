@@ -16,7 +16,6 @@ namespace TruyenHakuAPI.Middleware
         }
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
-            var test = context.Request.Cookies;
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             if (token != null)
             {

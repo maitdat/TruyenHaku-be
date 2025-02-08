@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TruyenHakuModels.RequestModels.AuthRequestModel;
+using TruyenHakuModels.ResponseModels.User;
 
 namespace TruyenHakuBusiness.UserService
 {
     public interface IUserService
     {
-        public Task<UserModel> GetById(string id);
+        public Task<UserInfoResponse> GetById(string id);
     }
 }

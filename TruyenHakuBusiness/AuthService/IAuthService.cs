@@ -11,7 +11,7 @@ namespace TruyenHakuBusiness.AuthService
 {
     public interface IAuthService
     {
-        public Task<IdentityResult> Register (UserModel userInfo);
+        public Task<IdentityResult> Register (RegisterRequest userInfo);
         public Task<LoginResponse> Login (LoginRequest userInfo);
         Task<IList<string>> GetRoles(string userId);
     }

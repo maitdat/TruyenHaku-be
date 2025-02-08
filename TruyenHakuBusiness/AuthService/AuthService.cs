@@ -74,7 +74,7 @@ namespace TruyenHakuBusiness.AuthService
 
         //public async Task<>
 
-        public async Task<IdentityResult> Register(UserModel userInfo)
+        public async Task<IdentityResult> Register(RegisterRequest userInfo)
         {
             if (await _userManager.FindByNameAsync(userInfo.UserName) != null)
             {

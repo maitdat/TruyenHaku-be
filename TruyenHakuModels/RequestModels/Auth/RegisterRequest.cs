@@ -3,7 +3,7 @@ using TruyenHakuCommon.Constants;
 
 namespace TruyenHakuModels.RequestModels.AuthRequestModel
 {
-    public class UserModel
+    public class RegisterRequest
     {
         [EmailAddress]
         [Required(ErrorMessage = Constants.Commons.EMAIL_INVALID)]

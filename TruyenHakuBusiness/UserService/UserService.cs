@@ -1,18 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
 using TruyenHakuModels.RequestModels.AuthRequestModel;
+using TruyenHakuModels.ResponseModels.User;
 
 namespace TruyenHakuBusiness.UserService
 {
     public class UserService : IUserService
     {
         private readonly AppDbContext _dbContext;
-        public UserService (AppDbContext appDbContext)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UserService (AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor)
         {
             _dbContext = appDbContext;
+            _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<UserModel> GetById(string id)
+        public async Task<UserInfoResponse> GetById(string id)
         {
             var user =await _dbContext.Users.Where(x=>x.Id == id).FirstOrDefaultAsync();
             if(user == null)
@@ -20,13 +25,18 @@ namespace TruyenHakuBusiness.UserService
                 string itemName = "Người dùng";
                 throw new Exception(string.Format(Constants.Commons.ITEM_NOT_EXIST, itemName));
             }
-            return new UserModel
+            return new UserInfoResponse
             {
-                HoTen = user.FullName,
+                FullName = user.FullName,
                 Email = user.Email,
-                SDT = user.PhoneNumber,
+                PhoneNumber = user.PhoneNumber,
                 UserName = user.UserName
             };
         }
+
+        //public async Task<RegisterRequest> GetUserByToken()
+        //{
+        //    var currentUser = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //}
     }
 }
