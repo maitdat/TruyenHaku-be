@@ -11,5 +11,6 @@ namespace TruyenHakuBusiness.UserService
     public interface IUserService
     {
         public Task<UserInfoResponse> GetById(string id);
+        Task<UserInfoResponse> GetCurrentUser();
     }
 }

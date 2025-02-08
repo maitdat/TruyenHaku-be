@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TruyenHakuBusiness.AuthService;
 using TruyenHakuBusiness.TokenService;
+using TruyenHakuBusiness.UserService;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels.Entities.Account;
 using TruyenHakuModels.RequestModels.AuthRequestModel;
@@ -19,17 +20,20 @@ namespace TruyenHakuAPI.Controllers
         private readonly UserManager<UserAccount> _userManager;
         private readonly IUserStore<UserAccount> _userStore;
         private readonly ITokenService _tokenService;
+        private readonly IUserService _userService;
         public UserController(IAuthService authService,
             SignInManager<UserAccount> signInManager, 
             UserManager<UserAccount> userManager,
             IUserStore<UserAccount> userStore,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            IUserService userService)
         {
             _authService = authService;
             _signInManager = signInManager;
             _userManager = userManager;
             _userStore = userStore;
             _tokenService = tokenService;
+            _userService = userService;
         }
 
 
@@ -45,6 +49,13 @@ namespace TruyenHakuAPI.Controllers
             {
                 return BadRequest(res);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var res = await _userService.GetCurrentUser();
+            return Ok(res);
         }
 
 

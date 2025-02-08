@@ -48,5 +48,10 @@ namespace TruyenHakuCommon.Constants
             public const int PAGE_SIZE_DEFAULT = 20;
             public const int PAGE_SIZE_MANGA = 36;
         }
+
+        public class ClaimTypesCustom
+        {
+            public const string GOOGLE_AVATAR = "urn:google:picture";
+        }
     }
 }

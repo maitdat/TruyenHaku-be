@@ -10,7 +10,7 @@ namespace TruyenHakuModels.ResponseModels.User
     {
         public string Id { get; set; }
         public string FullName { get; set; }
-        public string AvatarImg {  get; set; }
+        public string? AvatarImg {  get; set; }
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }

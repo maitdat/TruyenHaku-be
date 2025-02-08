@@ -14,6 +14,7 @@ using TruyenHakuAPI.Middleware;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
 using TruyenHakuModels.Entities.Account;
+using static TruyenHakuCommon.Constants.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -64,7 +65,7 @@ builder.Services.AddAuthentication(options =>
     // Cấu hình Url callback lại từ Google (không thiết lập thì mặc định là /signin-google)
     googleOptions.CallbackPath = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CALLBACKPATH];
 
-    googleOptions.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+    googleOptions.ClaimActions.MapJsonKey(ClaimTypesCustom.GOOGLE_AVATAR, "picture", "url");
 
 });
 

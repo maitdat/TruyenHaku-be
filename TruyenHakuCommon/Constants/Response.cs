@@ -18,6 +18,7 @@ namespace TruyenHakuCommon.Constants
             public const string ACTION_SUCEED = "{0} thành công";
             public const string ACTION_FAILED = "{0} không thành công";
             public const string NOT_FOUND = "{0} không tìm thấy";
+            public const string NOT_AUTHORIZED = "Chưa xác thực";
         }
     }
 }

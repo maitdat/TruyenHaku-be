@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
+using TruyenHakuModels.Entities.Account;
 using TruyenHakuModels.RequestModels.AuthRequestModel;
 using TruyenHakuModels.ResponseModels.User;
+using static TruyenHakuCommon.Constants.Constants;
 
 namespace TruyenHakuBusiness.UserService
 {
@@ -12,10 +16,12 @@ namespace TruyenHakuBusiness.UserService
     {
         private readonly AppDbContext _dbContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public UserService (AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<UserAccount> _userManager;
+        public UserService (AppDbContext appDbContext, IHttpContextAccessor httpContextAccessor, UserManager<UserAccount> userManager)
         {
             _dbContext = appDbContext;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
         public async Task<UserInfoResponse> GetById(string id)
         {
@@ -34,9 +40,28 @@ namespace TruyenHakuBusiness.UserService
             };
         }
 
-        //public async Task<RegisterRequest> GetUserByToken()
-        //{
-        //    var currentUser = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //}
+        public async Task<UserInfoResponse> GetCurrentUser()
+        {
+            var id = _httpContextAccessor?.HttpContext?.User?.FindFirstValue(ClaimTypes.Sid);
+            var currentUser =await _userManager.FindByIdAsync(id);
+
+            if(currentUser == null)
+            {
+                throw new Exception(string.Format(Constants.Commons.NOT_AUTHORIZED));
+            }
+            
+            var userClaims =await _userManager.GetClaimsAsync(currentUser);
+
+            return new UserInfoResponse
+            {
+                Id = currentUser.Id,
+                FullName = currentUser.FullName,
+                Email = currentUser.Email,
+                PhoneNumber = currentUser.PhoneNumber,
+                UserName = currentUser.UserName,
+                AvatarImg = userClaims?.FirstOrDefault(x => x.Type == ClaimTypesCustom.GOOGLE_AVATAR)?.Value,
+                BirthDate = currentUser.BirthDate,
+            };
+        }
     }
 }

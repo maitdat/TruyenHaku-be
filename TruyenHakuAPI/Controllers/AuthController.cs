@@ -7,6 +7,7 @@ using TruyenHakuBusiness.TokenService;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels.Entities.Account;
 using TruyenHakuModels.RequestModels.AuthRequestModel;
+using static TruyenHakuCommon.Constants.Constants;
 
 namespace TruyenHakuAPI.Controllers
 {
@@ -59,7 +60,7 @@ namespace TruyenHakuAPI.Controllers
                     return BadRequest(new { Message = "Dịch vụ không chính xác: " + request.Provider });
                 }
 
-                var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "AppUser", new { returnUrl = request.ReturnUrl });
+                var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Auth", new { returnUrl = request.ReturnUrl });
 
                 var properties = _signInManager.ConfigureExternalAuthenticationProperties(request.Provider, redirectUrl);
 
@@ -169,10 +170,10 @@ namespace TruyenHakuAPI.Controllers
                             // If they exist, add claims to the user for:
                             //    Picture
 
-                            if (info.Principal.HasClaim(c => c.Type == "urn:google:picture"))
+                            if (info.Principal.HasClaim(c => c.Type == ClaimTypesCustom.GOOGLE_AVATAR))
                             {
                                 await _userManager.AddClaimAsync(user,
-                                    info.Principal.FindFirst("urn:google:picture"));
+                                    info.Principal?.FindFirst(ClaimTypesCustom.GOOGLE_AVATAR));
                             }
 
                             var token = await _tokenService.GenerateToken(user);
