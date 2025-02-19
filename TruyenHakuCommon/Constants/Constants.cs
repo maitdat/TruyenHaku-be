@@ -53,5 +53,10 @@ namespace TruyenHakuCommon.Constants
         {
             public const string GOOGLE_AVATAR = "urn:google:picture";
         }
+        public class Token
+        {
+            public const string ACCESS_TOKEN = "access_token";
+            public const string REFRESH_TOKEN = "refresh_token";
+        }
     }
 }

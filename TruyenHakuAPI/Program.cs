@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Reflection;
 using System.Text;
 using TruyenHakuAPI.Extensions;
 using TruyenHakuAPI.Middleware;
@@ -42,8 +40,12 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+.AddCookie(x =>
+    x.Cookie.Name = Constants.Token.ACCESS_TOKEN
+)
 .AddJwtBearer(options =>
 {
+    options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -54,11 +56,19 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration[Constants.AppSettingKeys.JWT_VALIDISSUER],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration[Constants.AppSettingKeys.JWT_SECRET]))
     };
-})
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var token = context.Request.Cookies[Constants.Token.ACCESS_TOKEN];
+            context.Token = token;
+            return Task.CompletedTask;
+        }
+    };
+}
+)
 .AddGoogle(googleOptions =>
 {
-    // Đọc thông tin Authentication:Google từ appsettings.json
-
     // Thiết lập ClientID và ClientSecret để truy cập API google
     googleOptions.ClientId = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CLIENTID];
     googleOptions.ClientSecret = builder.Configuration[Constants.AppSettingKeys.GOOGLE_CLIENTSECRET];
@@ -120,17 +130,17 @@ builder.Services.AddSwaggerGen(option =>
     option.CustomSchemaIds(type => type.ToString());
 });
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy(name: MyAllowSpecificOrigins,
-//                      policy =>
-//                      {
-//                          policy.WithOrigins("http://localhost:5173")
-//                          .AllowAnyHeader()
-//                          .AllowAnyMethod()
-//                          .AllowCredentials();
-//                      });
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                      });
+});
 
 // use Service
 builder.Services.AddTransient<ExeptionHandleMiddleware>();
@@ -148,12 +158,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseMiddleware<ExeptionHandleMiddleware>();
 app.UseMiddleware<JwtMiddleware>();
-//app.UseCors(MyAllowSpecificOrigins);
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .SetIsOriginAllowed(origin => true) // allow any origin
-    .AllowCredentials()); // allow credentials
+app.UseCors(MyAllowSpecificOrigins);
+
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 

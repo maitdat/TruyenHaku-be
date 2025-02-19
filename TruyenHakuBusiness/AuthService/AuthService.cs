@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Identity.Client;
+using System.Security.Claims;
 using TruyenHakuBusiness.TokenService;
 using TruyenHakuCommon.Constants;
 using TruyenHakuModels;
@@ -34,13 +36,29 @@ namespace TruyenHakuBusiness.AuthService
             {
                 throw new Exception(Constants.Commons.USER_NOT_EXIST);
             }
+
             if (await _userManager.CheckPasswordAsync(currentUser, userInfo.Password))
             {
+                var token = await _tokenService.GenerateToken(currentUser);
+                _tokenService.SetTokenInsideCookie(token,_httpContext.HttpContext);
+
+                //var claims = _tokenService.CreateClaimIdentity(currentUser, await _userManager.GetRolesAsync(currentUser));
+                //var props = new AuthenticationProperties
+                //{
+                //    IsPersistent = true,
+                //    ExpiresUtc = DateTime.UtcNow.AddMinutes(5),
+                //};
+
+
+                //var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                //var principal = new ClaimsPrincipal(identity);
+
+                //await _httpContext.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, props);
 
                 var res = new LoginResponse
                 {
                     Message = "Đăng nhập thành công",
-                    Token = await _tokenService.GenerateToken(currentUser),
+                    //Token = await _tokenService.GenerateToken(currentUser),
                     IsSucceed = true
                 };
                 return res;
@@ -48,7 +66,7 @@ namespace TruyenHakuBusiness.AuthService
             return new LoginResponse
             {
                 Message = "Tài khoản hoặc mật khẩu không đúng",
-                Token = "",
+                //Token = "",
                 IsSucceed = false
             };
         }
@@ -92,7 +110,7 @@ namespace TruyenHakuBusiness.AuthService
 
         public async Task<IList<string>> GetRoles(string userId)
         {
-            var user =await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
             return await _userManager.GetRolesAsync(user);
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,7 +40,7 @@ namespace TruyenHakuBusiness.TokenService
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private List<Claim> CreateClaimIdentity(UserAccount user,IList<string> roles)
+        public List<Claim> CreateClaimIdentity(UserAccount user,IList<string> roles)
         {
             var claims = new List<Claim>();
             claims.AddRange([
@@ -57,7 +58,28 @@ namespace TruyenHakuBusiness.TokenService
             
             return claims;
         }
-        
+
+        public void SetTokenInsideCookie(string token, HttpContext httpContext)
+        {
+            httpContext.Response.Cookies.Append(Constants.Token.ACCESS_TOKEN, token, new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                Expires = DateTimeOffset.Now.AddMinutes(20),
+                SameSite = SameSiteMode.None,
+                IsEssential = true,
+            });
+
+            httpContext.Response.Cookies.Append(Constants.Token.REFRESH_TOKEN, "abc", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                Expires = DateTimeOffset.Now.AddDays(7),
+                SameSite = SameSiteMode.None,
+                IsEssential = true,
+            });
+        }
+
         //public async Task<string> RefreshToken(string token)
         //{
 
