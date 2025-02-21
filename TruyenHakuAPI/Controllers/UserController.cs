@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -16,23 +17,12 @@ namespace TruyenHakuAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private readonly SignInManager<UserAccount> _signInManager;
-        private readonly UserManager<UserAccount> _userManager;
-        private readonly IUserStore<UserAccount> _userStore;
-        private readonly ITokenService _tokenService;
         private readonly IUserService _userService;
-        public UserController(IAuthService authService,
-            SignInManager<UserAccount> signInManager, 
-            UserManager<UserAccount> userManager,
-            IUserStore<UserAccount> userStore,
-            ITokenService tokenService,
+        public UserController(
+            IAuthService authService,
             IUserService userService)
         {
             _authService = authService;
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _userStore = userStore;
-            _tokenService = tokenService;
             _userService = userService;
         }
 

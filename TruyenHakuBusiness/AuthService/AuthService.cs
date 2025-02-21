@@ -39,8 +39,11 @@ namespace TruyenHakuBusiness.AuthService
 
             if (await _userManager.CheckPasswordAsync(currentUser, userInfo.Password))
             {
-                var token = await _tokenService.GenerateToken(currentUser);
-                _tokenService.SetTokenInsideCookie(token,_httpContext.HttpContext);
+
+                // use cookie to store token
+
+                //var token = await _tokenService.GenerateToken(currentUser);
+                //_tokenService.SetTokenInsideCookie(token,_httpContext.HttpContext);
 
                 //var claims = _tokenService.CreateClaimIdentity(currentUser, await _userManager.GetRolesAsync(currentUser));
                 //var props = new AuthenticationProperties
@@ -58,7 +61,7 @@ namespace TruyenHakuBusiness.AuthService
                 var res = new LoginResponse
                 {
                     Message = "Đăng nhập thành công",
-                    //Token = await _tokenService.GenerateToken(currentUser),
+                    Token = await _tokenService.GenerateToken(currentUser),
                     IsSucceed = true
                 };
                 return res;
@@ -66,7 +69,7 @@ namespace TruyenHakuBusiness.AuthService
             return new LoginResponse
             {
                 Message = "Tài khoản hoặc mật khẩu không đúng",
-                //Token = "",
+                Token = "",
                 IsSucceed = false
             };
         }

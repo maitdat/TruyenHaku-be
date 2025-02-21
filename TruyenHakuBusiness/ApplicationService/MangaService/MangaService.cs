@@ -26,7 +26,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
         private const string XOA_TRUYEN = "Xóa truyện";
         private const string THUMBNAIL = "Thumbnail";
 
-        public MangaService( ICommonService commonService, AppDbContext appDbContext)
+        public MangaService(ICommonService commonService, AppDbContext appDbContext)
         {
             _commonService = commonService;
             _appDbContext = appDbContext;
@@ -59,7 +59,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                     };
 
                     _appDbContext.Manga.Add(newManga);
-                    //await _appDbContext.SaveChangesAsync();
+                    await _appDbContext.SaveChangesAsync();
                     return new ResponseToClient()
                     {
                         Succeed = true,
@@ -79,21 +79,22 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }            
+            }
         }
 
         public async Task<ResponseToClient> CrawlThenAddListManga(long webCrawlId, List<CreateMangaRequestModel> models)
         {
-            foreach(var model in models)
+            foreach (var model in models)
             {
                 var res = await CrawlThenAddManga(webCrawlId, model);
-                if(!res.Succeed)
+                if (!res.Succeed)
                     return new ResponseToClient()
                     {
                         Errors = new[]
                     {
                     string.Format(Constants.Commons.ACTION_FAILED, THEM_TRUYEN + model.MangaUrl)
-                    }};
+                    }
+                    };
             }
             return new ResponseToClient()
             {
@@ -112,7 +113,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                     {
                         Name = model.Name,
                         AnotherName = model.AnotherName,
-                        Author = model.AuthorId > 0 ? await _appDbContext.Author.Where(x=>x.Id == model.AuthorId).FirstOrDefaultAsync() : null,
+                        Author = model.AuthorId > 0 ? await _appDbContext.Author.Where(x => x.Id == model.AuthorId).FirstOrDefaultAsync() : null,
                         NameFolder = model.FolderPath,
                         Status = model.Status,
                         MangaCategories = categoriesDefault.Where(x => model.CategoryIds.Contains(x.Id)).Select(y => new MangaCategory()
@@ -136,12 +137,12 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                     }
                 };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 throw new Exception(ex.ToString());
             }
-            
+
         }
 
         public async Task<BasePaginationResponse<GetInfoMangaResponse>> GetPagedManga(SearchFilterManga searchFilterManga)
@@ -150,12 +151,12 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
             {
                 IEnumerable<long> mangaIdsMatched = Enumerable.Empty<long>();
                 bool noFilter = true;
-                if (searchFilterManga.CategoryIdsSelected !=null || searchFilterManga.CategoryIdsUnselected != null)
+                if (searchFilterManga.CategoryIdsSelected != null || searchFilterManga.CategoryIdsUnselected != null)
                 {
                     noFilter = false;
                     mangaIdsMatched = _appDbContext.MangaCategory.Where(x =>
-                        (searchFilterManga.CategoryIdsSelected == null|| searchFilterManga.CategoryIdsSelected.Contains(x.Id)) &&
-                        (searchFilterManga.CategoryIdsUnselected == null  || !searchFilterManga.CategoryIdsUnselected.Contains(x.Id))
+                        (searchFilterManga.CategoryIdsSelected == null || searchFilterManga.CategoryIdsSelected.Contains(x.Id)) &&
+                        (searchFilterManga.CategoryIdsUnselected == null || !searchFilterManga.CategoryIdsUnselected.Contains(x.Id))
                         ).Select(x => x.Manga.Id);
                 }
 
@@ -195,7 +196,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                             Name = x.Category.Name
                         }).ToList(),
                         TotalChapter = x.Chapters.Count(),
-                        LastChapter = x.Chapters.OrderBy(x=>x.Id).FirstOrDefault().Name,
+                        LastChapter = x.Chapters.OrderBy(x => x.Id).FirstOrDefault().Name,
                         //Author = x.
                         TotalViews = x.TotalViews,
                         TotalLikes = x.TotalLikes,
@@ -213,15 +214,16 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                 Utilities.ApplyPaging(res, searchFilterManga.PageNo, searchFilterManga.PageSize, out totalItem);
 
                 return new BasePaginationResponse<GetInfoMangaResponse>(searchFilterManga.PageNo, searchFilterManga.PageSize, res.ToList(), totalItem);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 throw;
             }
-           
+
         }
 
-        
+
 
         public async Task<GetInfoMangaResponse> GetManga(long id)
         {
@@ -242,7 +244,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                     AuthorId = x.Author.Id,
                     AuthorName = x.Author.Name
                 },
-                Chapters = x.Chapters.Select(x=>new TruyenHakuModels.ResponseModels.Application.Chapter.ChapterResponse
+                Chapters = x.Chapters.Select(x => new TruyenHakuModels.ResponseModels.Application.Chapter.ChapterResponse
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -274,7 +276,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 
 
         #region PRIVATE METHOD
-        private IEnumerable<GetInfoMangaResponse> SortManga(Enums.SortManga sortBy, IEnumerable<GetInfoMangaResponse> mangas )
+        private IEnumerable<GetInfoMangaResponse> SortManga(Enums.SortManga sortBy, IEnumerable<GetInfoMangaResponse> mangas)
         {
 
             return sortBy switch
@@ -291,11 +293,11 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 
         private bool IsMangaExisted(string name)
         {
-            var mangaFound = _appDbContext.Manga.Where(x=>x.Name == name).FirstOrDefault();
+            var mangaFound = _appDbContext.Manga.Where(x => x.Name == name).FirstOrDefault();
             if (mangaFound != null)
                 return true;
             return false;
-            
+
         }
 
         #region CRAWL MANGA
@@ -329,7 +331,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                 // Lấy nội dung HTML sau khi JavaScript đã chạy
                 var web = new HtmlWeb();
 
-                var document =await web.LoadFromWebAsync(request.MangaUrl);
+                var document = await web.LoadFromWebAsync(request.MangaUrl);
 
                 MangaCrawl mangaCrawl = new MangaCrawl()
                 {
@@ -355,7 +357,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         private async Task CrawlChapters(List<ChapterCrawl> chapterCrawls, string mangaDir, WebCssSelector webCssSelector)
@@ -376,7 +378,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 
                         Directory.CreateDirectory(chapterDir);
 
-                        var listImgUrls = GetImgUrlsFromHTML(chapter.ChapterUrl,webCssSelector.ImageSelectors, webCssSelector.ImageAttribute);
+                        var listImgUrls = GetImgUrlsFromHTML(chapter.ChapterUrl, webCssSelector.ImageSelectors, webCssSelector.ImageAttribute);
 
                         // Thực hiện tải xuống danh sách ảnh trong chapter này
                         if (listImgUrls != null && listImgUrls.Any())

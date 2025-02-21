@@ -40,6 +40,12 @@ namespace TruyenHakuBusiness.TokenService
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+
+        //public async Task<string> RefreshToken(string token)
+        //{
+
+        //}
+
         public List<Claim> CreateClaimIdentity(UserAccount user,IList<string> roles)
         {
             var claims = new List<Claim>();
@@ -58,7 +64,7 @@ namespace TruyenHakuBusiness.TokenService
             
             return claims;
         }
-
+        #region Cookie
         public void SetTokenInsideCookie(string token, HttpContext httpContext)
         {
             httpContext.Response.Cookies.Append(Constants.Token.ACCESS_TOKEN, token, new CookieOptions
@@ -79,10 +85,8 @@ namespace TruyenHakuBusiness.TokenService
                 IsEssential = true,
             });
         }
+        #endregion
 
-        //public async Task<string> RefreshToken(string token)
-        //{
 
-        //}
     }
 }
