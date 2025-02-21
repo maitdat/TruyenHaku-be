@@ -10,6 +10,7 @@ using TruyenHakuModels.RequestModels.Application.Manga;
 using TruyenHakuModels.ResponseModels;
 using TruyenHakuModels.ResponseModels.Application.Author;
 using TruyenHakuModels.ResponseModels.Application.Category;
+using TruyenHakuModels.ResponseModels.Application.Chapter;
 using TruyenHakuModels.ResponseModels.Application.Manga;
 using static TruyenHakuCommon.Constants.Constants;
 using static TruyenHakuCommon.Utilities;
@@ -222,37 +223,72 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
             }
 
         }
-
-
-
+        
         public async Task<GetInfoMangaResponse> GetManga(long id)
         {
 
-            var manga = _appDbContext.Manga.Where(x => x.Id == id).Select(x => new GetInfoMangaResponse
+            var manga =await _appDbContext.Manga.Where(x => x.Id == id).Select(x => new GetInfoMangaResponse
             {
                 Id = x.Id,
                 Name = x.Name,
                 AnotherName = x.AnotherName,
-                MangaCategories = x.MangaCategories.Select(x => new CategoryResponse
+                MangaCategories = x.MangaCategories != null ? x.MangaCategories.Select(x => new CategoryResponse
                 {
                     Id = x.CategoryId,
                     Name = x.Category.Name
-                }).ToList(),
+                }).ToList() : null,
                 NameFolder = x.NameFolder,
                 Author = x.Author == null ? null : new AuthorResponse
                 {
                     AuthorId = x.Author.Id,
                     AuthorName = x.Author.Name
                 },
-                Chapters = x.Chapters.Select(x => new TruyenHakuModels.ResponseModels.Application.Chapter.ChapterResponse
+                Chapters =x.Chapters !=null ? x.Chapters.Select(x => new ChapterResponse
                 {
                     Id = x.Id,
                     Name = x.Name,
                     ChapterDir = x.NameFolder,
                     DateCreated = x.DateCreated,
-                }).ToList()
+                }).ToList() : null,
 
-            }).FirstOrDefault();
+            }).FirstOrDefaultAsync();
+
+            return manga;
+        }
+        public async Task<GetInfoMangaResponse> GetManga(string nameFolder)
+        {
+            var manga = await _appDbContext.Manga
+                .Where(x => x.NameFolder == nameFolder)
+                .Select(x => new GetInfoMangaResponse
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    AnotherName = x.AnotherName,
+                    MangaCategories = x.MangaCategories != null ? x.MangaCategories.Select(x => new CategoryResponse
+                    {
+                        Id = x.CategoryId,
+                        Name = x.Category.Name
+                    }).ToList() : null,
+                    NameFolder = x.NameFolder,
+                    Author = x.Author == null ? null : new AuthorResponse
+                    {
+                        AuthorId = x.Author.Id,
+                        AuthorName = x.Author.Name
+                    },
+                    Chapters = x.Chapters != null ? x.Chapters.Select(x => new ChapterResponse
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        ChapterDir = x.NameFolder,
+                        DateCreated = x.DateCreated,
+                    }).ToList() : null,
+                    TotalViews = x.TotalViews,
+                    TotalLikes = x.TotalLikes,
+                    Description = x.Description,
+                    DateCreated = x.DateCreated,
+                    DateModified = x.DateModified
+                })
+                .FirstOrDefaultAsync();
 
             return manga;
         }

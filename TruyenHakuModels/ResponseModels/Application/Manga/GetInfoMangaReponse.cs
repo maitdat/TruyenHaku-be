@@ -9,7 +9,7 @@ namespace TruyenHakuModels.ResponseModels.Application.Manga
     {
         public required string Name { get; set; }
         public string? AnotherName { get; set; }
-        public List<CategoryResponse> MangaCategories { get; set; }
+        public List<CategoryResponse>? MangaCategories { get; set; }
         public long TotalChapter { get; set; }
         public string? LastChapter { get; set; }
         public AuthorResponse? Author { get; set; }

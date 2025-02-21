@@ -10,6 +10,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
         Task<ResponseToClient> CrawlThenAddListManga(long webCrawlId, List<CreateMangaRequestModel> models);
         Task<ResponseToClient> AddManga (CreateMangaRequestModel model);
         Task<GetInfoMangaResponse> GetManga(long id);
+        Task<GetInfoMangaResponse> GetManga(string name);
         Task<ResponseToClient> RemoveManga (long id);
         Task<BasePaginationResponse<GetInfoMangaResponse>> GetPagedManga(SearchFilterManga searchFilterManga);
     }

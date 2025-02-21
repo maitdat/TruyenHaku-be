@@ -47,6 +47,15 @@ namespace TruyenHakuAPI.Controllers.Application
             return BadRequest();
         }
 
+        [HttpGet("{nameFolder}")]
+        public async Task<IActionResult> GetMangaByNameFolder(string nameFolder)
+        {
+            var res = await _mangaService.GetManga(nameFolder);
+            if (res != null)
+                return Ok(res);
+            return BadRequest();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetPagedManga([FromQuery] SearchFilterManga searchFilterManga)
         {
