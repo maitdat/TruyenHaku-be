@@ -259,29 +259,30 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
         {
             var manga = await _appDbContext.Manga
                 .Where(x => x.NameFolder == nameFolder)
+                .Include(x=>x.Chapters)
                 .Select(x => new GetInfoMangaResponse
                 {
                     Id = x.Id,
                     Name = x.Name,
                     AnotherName = x.AnotherName,
-                    MangaCategories = x.MangaCategories != null ? x.MangaCategories.Select(x => new CategoryResponse
+                    MangaCategories = x.MangaCategories.Select(x => new CategoryResponse
                     {
                         Id = x.CategoryId,
                         Name = x.Category.Name
-                    }).ToList() : null,
+                    }).ToList(),
                     NameFolder = x.NameFolder,
                     Author = x.Author == null ? null : new AuthorResponse
                     {
                         AuthorId = x.Author.Id,
                         AuthorName = x.Author.Name
                     },
-                    Chapters = x.Chapters != null ? x.Chapters.Select(x => new ChapterResponse
+                    Chapters = x.Chapters.Select(x => new ChapterResponse
                     {
                         Id = x.Id,
                         Name = x.Name,
                         ChapterDir = x.NameFolder,
                         DateCreated = x.DateCreated,
-                    }).ToList() : null,
+                    }).ToList() ,
                     TotalViews = x.TotalViews,
                     TotalLikes = x.TotalLikes,
                     Description = x.Description,
