@@ -40,8 +40,6 @@ namespace TruyenHakuBusiness.ApplicationService.ChapterService
             }
         }
 
-        
-
         public async Task<List<ChapterResponse>> GetChaptersAsync(long mangaId)
         {
             var res =await _appDbContext.Chapter.Where(x=>x.Manga.Id == mangaId)
@@ -56,12 +54,12 @@ namespace TruyenHakuBusiness.ApplicationService.ChapterService
             return res;
         }
 
-        public async Task<ChapterResponse> GetChapterByIdAsync(long id)
+        public async Task<ChapterResponse> GetChapterAsync(string mangaName, string chapterName)
         {
             
             var chapter = await _appDbContext.Chapter
                 .Include(x=>x.Manga)
-                .Where(x=>x.Id == id).FirstOrDefaultAsync();
+                .Where(x=>x.NameFolder == chapterName && x.Manga.NameFolder == mangaName).FirstOrDefaultAsync();
 
             if (chapter == null)
                 throw new Exception(string.Format(Constants.Commons.NOT_FOUND, CHAPTER));

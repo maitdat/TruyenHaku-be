@@ -17,16 +17,16 @@ namespace TruyenHakuAPI.Controllers.Application
             _chapterService = chapterService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{manga}/{chapter}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetChapter(long id)
+        public async Task<IActionResult> GetChapter(string manga,string chapter)
         {
-            var chapter = await _chapterService.GetChapterByIdAsync(id);
-            if (chapter == null)
+            var res = await _chapterService.GetChapterAsync(manga,chapter);
+            if (res == null)
             {
                 return NotFound("Chapter không tìm thấy");
             }
-            return Ok(chapter);
+            return Ok(res);
         }
 
         [HttpGet("{mangaId}")]

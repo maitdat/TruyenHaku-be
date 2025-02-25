@@ -16,7 +16,7 @@ namespace TruyenHakuBusiness.ApplicationService.ChapterService
         Task AddChapterAsync(Chapter chapter);
         Task UpdateChapterAsync(Chapter chapter);
         Task DeleteChapterAsync(long chapterId);
-        Task<ChapterResponse> GetChapterByIdAsync(long chapterId);
+        Task<ChapterResponse> GetChapterAsync(string mangaName, string chapterName);
         Task<List<ChapterResponse>> GetChaptersAsync(long mangaId);
     }
 }
