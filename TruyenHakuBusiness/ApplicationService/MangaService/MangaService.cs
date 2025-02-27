@@ -150,42 +150,33 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
         {
             try
             {
-                IEnumerable<long> mangaIdsMatched = Enumerable.Empty<long>();
-                bool noFilter = true;
+                var mangaIdsFound = new List<long>();
+                bool filterCategory = false;
                 if (searchFilterManga.CategoryIdsSelected != null || searchFilterManga.CategoryIdsUnselected != null)
                 {
-                    noFilter = false;
-                    mangaIdsMatched = _appDbContext.MangaCategory.Where(x =>
-                        (searchFilterManga.CategoryIdsSelected == null || searchFilterManga.CategoryIdsSelected.Contains(x.Id)) &&
-                        (searchFilterManga.CategoryIdsUnselected == null || !searchFilterManga.CategoryIdsUnselected.Contains(x.Id))
-                        ).Select(x => x.Manga.Id);
-                }
+                    filterCategory = true;
+                    var mangaCategories = _appDbContext.MangaCategory
+                        .Select(x => new
+                        {
+                            CategoryId = x.CategoryId,
+                            MangaId = x.Manga.Id
+                        });
 
-                //var res1 = _unitOfWork.Repository<Manga>()
-                //    .Find(x =>
-                //    //(noFilter ||
-                //    //mangaIdsMatched.Contains(x.Id)
-                //    //)
-                //     x.Status == searchFilterManga.Status)
-                //    .Select(x => new GetInfoMangaResponse
-                //    {
-                //        Id = x.Id,
-                //        Name = x.Name,
-                //        AnotherName = x.AnotherName,
-                //        MangaCategories = x.MangaCategories.Select(x => x.Id).ToList(),
-                //        TotalChapter = x.Chapters.Count(),
-                //        LastChapter = x.Chapters.OrderByDescending(x => x.Id).FirstOrDefault()?.Name,
-                //        //Author = x.
-                //        TotalViews = x.TotalViews,
-                //        TotalLikes = x.TotalLikes,
-                //        NameFolder = x.NameFolder,
-                //        Description = x.Description,
-                //        DateCreated = x.DateCreated.Value,
-                //        DateModified = x.DateModified.Value
-                //    });
+                    var mangaSelected = mangaCategories
+                        .Where(x => searchFilterManga.CategoryIdsSelected.Contains(x.CategoryId))
+                        .Select(x => x.MangaId)
+                        .Distinct();
+                    var mangaUnselected = mangaCategories
+                        .Where(x => searchFilterManga.CategoryIdsUnselected.Contains(x.CategoryId))
+                        .Select(x => x.MangaId)
+                        .Distinct();
+
+                     mangaIdsFound = mangaSelected.Where(x => !mangaUnselected.Contains(x)).ToList();
+                }
 
 
                 var res = _appDbContext.Manga
+                    .Where(x=> (filterCategory && mangaIdsFound.Contains(x.Id)))
                     .Select(x => new GetInfoMangaResponse
                     {
                         Id = x.Id,
