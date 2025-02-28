@@ -1,4 +1,5 @@
-﻿using TruyenHakuBusiness.ApplicationService.ChapterService;
+﻿using TruyenHakuBusiness.ApplicationService.CategoryService;
+using TruyenHakuBusiness.ApplicationService.ChapterService;
 using TruyenHakuBusiness.ApplicationService.MangaService;
 using TruyenHakuBusiness.AuthService;
 using TruyenHakuBusiness.CommonService;
@@ -24,6 +25,7 @@ namespace TruyenHakuAPI.Extensions
             services.AddScoped<IMangaService,MangaService>();
             services.AddScoped<ICommonService,CommonService>();
             services.AddScoped<IChapterService,ChapterService>();
+            services.AddScoped<ICategoryService,CategoryService>();
         }
     }
 }

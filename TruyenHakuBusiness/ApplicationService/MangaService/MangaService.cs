@@ -152,7 +152,10 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
             {
                 var mangaIdsFound = new List<long>();
                 bool filterCategory = false;
-                if (searchFilterManga.CategoryIdsSelected != null || searchFilterManga.CategoryIdsUnselected != null)
+
+                var categoryIdsSelected = searchFilterManga.CategoryIdsSelected?.Split(',').Select(long.Parse).ToList();
+                var categoryIdsUnselected = searchFilterManga.CategoryIdsUnselected?.Split(',').Select(long.Parse).ToList();
+                if (categoryIdsSelected != null || categoryIdsUnselected != null)
                 {
                     filterCategory = true;
                     var mangaCategories = _appDbContext.MangaCategory
@@ -163,11 +166,11 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                         });
 
                     var mangaSelected = mangaCategories
-                        .Where(x => searchFilterManga.CategoryIdsSelected.Contains(x.CategoryId))
+                        .Where(x => categoryIdsSelected != null && categoryIdsSelected.Contains(x.CategoryId))
                         .Select(x => x.MangaId)
                         .Distinct();
                     var mangaUnselected = mangaCategories
-                        .Where(x => searchFilterManga.CategoryIdsUnselected.Contains(x.CategoryId))
+                        .Where(x => categoryIdsUnselected != null && categoryIdsUnselected.Contains(x.CategoryId))
                         .Select(x => x.MangaId)
                         .Distinct();
 
@@ -176,7 +179,10 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 
 
                 var res = _appDbContext.Manga
-                    .Where(x=> (filterCategory && mangaIdsFound.Contains(x.Id)))
+                    .Where(x=> 
+                    (filterCategory && mangaIdsFound.Contains(x.Id))
+                    || !filterCategory
+                    )
                     .Select(x => new GetInfoMangaResponse
                     {
                         Id = x.Id,
