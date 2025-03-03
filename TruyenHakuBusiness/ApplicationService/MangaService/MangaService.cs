@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using TruyenHakuBusiness.CommonService;
 using TruyenHakuCommon;
 using TruyenHakuCommon.Constants;
@@ -159,18 +160,19 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                 {
                     filterCategory = true;
                     var mangaCategories = _appDbContext.MangaCategory
+                        .GroupBy(x => x.Manga.Id)
                         .Select(x => new
                         {
-                            CategoryId = x.CategoryId,
-                            MangaId = x.Manga.Id
-                        });
+                            MangaId = x.Key,
+                            CategoryIds = x.Select(x=>x.CategoryId).ToList()
+                        }).ToList();
 
                     var mangaSelected = mangaCategories
-                        .Where(x => categoryIdsSelected != null && categoryIdsSelected.Contains(x.CategoryId))
+                        .Where(x => categoryIdsSelected != null && categoryIdsSelected.All(id=>x.CategoryIds.Contains(id)))
                         .Select(x => x.MangaId)
                         .Distinct();
                     var mangaUnselected = mangaCategories
-                        .Where(x => categoryIdsUnselected != null && categoryIdsUnselected.Contains(x.CategoryId))
+                        .Where(x => categoryIdsUnselected != null && x.CategoryIds.Any(x=>categoryIdsUnselected.Contains(x)))
                         .Select(x => x.MangaId)
                         .Distinct();
 
@@ -178,7 +180,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                 }
 
 
-                var res = _appDbContext.Manga
+                var mangas = _appDbContext.Manga
                     .Where(x=> 
                     (filterCategory && mangaIdsFound.Contains(x.Id))
                     || !filterCategory
@@ -206,12 +208,12 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 
 
                 if (searchFilterManga.SortBy != null)
-                    SortManga(searchFilterManga.SortBy.Value, res);
+                    mangas = SortManga(searchFilterManga.SortBy.Value, mangas);
 
                 var totalItem = 0;
-                Utilities.ApplyPaging(res, searchFilterManga.PageNo, searchFilterManga.PageSize, out totalItem);
+                var res = Utilities.ApplyPaging(mangas, searchFilterManga.PageNo, searchFilterManga.PageSize, out totalItem).ToList();
 
-                return new BasePaginationResponse<GetInfoMangaResponse>(searchFilterManga.PageNo, searchFilterManga.PageSize, res.ToList(), totalItem);
+                return new BasePaginationResponse<GetInfoMangaResponse>(searchFilterManga.PageNo, searchFilterManga.PageSize, res, totalItem);
             }
             catch (Exception ex)
             {
@@ -310,7 +312,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
 
 
         #region PRIVATE METHOD
-        private IEnumerable<GetInfoMangaResponse> SortManga(Enums.SortManga sortBy, IEnumerable<GetInfoMangaResponse> mangas)
+        private IQueryable<GetInfoMangaResponse> SortManga(Enums.SortManga sortBy, IQueryable<GetInfoMangaResponse> mangas)
         {
 
             return sortBy switch

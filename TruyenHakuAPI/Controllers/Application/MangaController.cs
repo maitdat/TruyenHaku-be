@@ -60,9 +60,7 @@ namespace TruyenHakuAPI.Controllers.Application
         public async Task<IActionResult> GetPagedManga([FromQuery] SearchFilterManga searchFilterManga)
         {
             var res = await _mangaService.GetPagedManga(searchFilterManga);
-            if (res.Data.Count()>0)
                 return Ok(res);
-            return BadRequest();
         }
 
 
