@@ -45,7 +45,8 @@ namespace TruyenHakuCommon
             ModifiedDateAsc ,
             CreatedDateDes ,
             CreatedDateAsc ,
-            TotalViewsAsc
+            TotalViewsAsc ,
+            TotalViewsDes
         }
 
     }

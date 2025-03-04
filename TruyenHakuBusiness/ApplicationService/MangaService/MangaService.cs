@@ -322,6 +322,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                 Enums.SortManga.ModifiedDateDes => mangas.OrderByDescending(x => x.DateModified),
                 Enums.SortManga.ModifiedDateAsc => mangas.OrderBy(x => x.DateModified),
                 Enums.SortManga.TotalViewsAsc => mangas.OrderBy(x => x.TotalViews),
+                Enums.SortManga.TotalViewsDes => mangas.OrderByDescending(x=>x.TotalViews),
                 _ => throw new ArgumentException("Invalid sorting option")
             };
 
