@@ -165,7 +165,7 @@ namespace TruyenHakuBusiness.ApplicationService.MangaService
                         {
                             MangaId = x.Key,
                             CategoryIds = x.Select(x=>x.CategoryId).ToList()
-                        }).ToList();
+                        });
 
                     var mangaSelected = mangaCategories
                         .Where(x => categoryIdsSelected != null && categoryIdsSelected.All(id=>x.CategoryIds.Contains(id)))
